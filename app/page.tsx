@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type Automation = {
   id: number;
@@ -15,6 +15,7 @@ type Automation = {
   fit: string;
   threshold: string;
   tools: string[];
+  details: string[];
   steps: string[];
   metric: string;
 };
@@ -32,7 +33,17 @@ const automations: Automation[] = [
     complexity: "Medium",
     fit: "Teams receiving 50+ inbound leads each month.",
     threshold: "Usually not worthwhile below 20 leads/month.",
-    tools: ["HubSpot", "Zoho", "Salesforce", "Slack", "n8n"],
+    tools: ["HubSpot", "Zoho", "Freshsales", "Salesforce", "Pipedrive", "Slack", "Teams", "n8n", "Make", "Zapier"],
+    details: [
+      "Captures every new demo, contact or landing-page submission.",
+      "Validates the lead’s email address and phone number.",
+      "Enriches the contact, company, industry, location and employee count.",
+      "Checks the CRM for existing contacts, companies and open opportunities.",
+      "Scores the lead using your agreed fit and qualification criteria.",
+      "Assigns the correct salesperson using territory, segment or round-robin rules.",
+      "Creates the CRM task and sends an immediate sales alert.",
+      "Escalates or reassigns leads that are not contacted within the SLA.",
+    ],
     steps: ["Validate", "Enrich", "Score", "Assign", "Alert", "Escalate"],
     metric: "Response time",
   },
@@ -48,7 +59,17 @@ const automations: Automation[] = [
     complexity: "High",
     fit: "Outbound teams researching 500+ accounts each month.",
     threshold: "Best when two or more SDRs perform manual research.",
-    tools: ["Clay", "Apollo", "Hunter", "HubSpot", "Sheets"],
+    tools: ["Clay", "Apollo", "Hunter", "HubSpot", "Zoho", "Salesforce", "Pipedrive", "Google Sheets", "n8n"],
+    details: [
+      "Imports target accounts from a spreadsheet, CRM view or outbound list.",
+      "Enriches company size, industry, geography, technology and other firmographic data.",
+      "Finds relevant decision-makers for the selected buying roles.",
+      "Finds and verifies business email addresses and available phone numbers.",
+      "Checks every account against your structured ICP criteria.",
+      "Collects useful hiring, funding, technology or expansion signals.",
+      "Creates account summaries and personalisation inputs for sales representatives.",
+      "Pushes approved, sales-ready records into the CRM or sequencing platform.",
+    ],
     steps: ["Import", "Enrich", "Verify", "Check ICP", "Research", "Sync"],
     metric: "Cost per ready account",
   },
@@ -64,7 +85,16 @@ const automations: Automation[] = [
     complexity: "Low",
     fit: "Teams conducting 40+ sales meetings each month.",
     threshold: "Check your meeting tool’s native features first.",
-    tools: ["Zoom", "Meet", "Fireflies", "Fathom", "HubSpot"],
+    tools: ["Zoom", "Google Meet", "Fireflies", "Fathom", "Grain", "HubSpot", "Zoho", "Salesforce", "Freshsales"],
+    details: [
+      "Captures the sales meeting transcript and recording metadata.",
+      "Creates a structured summary of the customer’s situation and requirements.",
+      "Extracts pain points, stakeholders, objections and agreed next steps.",
+      "Updates the relevant contact, company and opportunity records.",
+      "Populates agreed qualification and deal fields with confidence controls.",
+      "Creates follow-up tasks and drafts the post-meeting email.",
+      "Flags uncertain or missing information for salesperson approval.",
+    ],
     steps: ["Capture", "Summarise", "Extract", "Update", "Task", "Draft"],
     metric: "Admin hours saved",
   },
@@ -80,7 +110,16 @@ const automations: Automation[] = [
     complexity: "Low",
     fit: "Multi-rep teams with inconsistent response times.",
     threshold: "Best when lead ownership and SLA rules are already clear.",
-    tools: ["HubSpot", "Freshsales", "Pipedrive", "Teams", "WhatsApp"],
+    tools: ["HubSpot", "Zoho", "Salesforce", "Freshsales", "Pipedrive", "Slack", "Teams", "Email", "WhatsApp APIs"],
+    details: [
+      "Starts a response timer whenever a new qualified lead is assigned.",
+      "Sends reminders before the agreed response deadline is missed.",
+      "Alerts the manager when a high-priority lead remains untouched.",
+      "Reassigns leads using your escalation or round-robin rules.",
+      "Creates the required CRM follow-up tasks automatically.",
+      "Captures contacted, rejected and disqualified lead outcomes.",
+      "Produces a daily exception report of leads that need attention.",
+    ],
     steps: ["Start SLA", "Remind", "Escalate", "Reassign", "Report"],
     metric: "SLA compliance",
   },
@@ -96,7 +135,17 @@ const automations: Automation[] = [
     complexity: "Medium",
     fit: "Companies with 5,000+ CRM records or recurring data issues.",
     threshold: "Requires agreement on merge and ownership rules.",
-    tools: ["HubSpot", "Zoho", "Salesforce", "Clay", "Hunter"],
+    tools: ["HubSpot", "Zoho", "Salesforce", "Freshsales", "Pipedrive", "Clay", "Apollo", "Hunter"],
+    details: [
+      "Scans contacts, companies and opportunities for duplicate records.",
+      "Standardises company names, domains, countries and phone numbers.",
+      "Validates email addresses and flags risky or unusable contact data.",
+      "Enriches required fields that are missing from otherwise useful records.",
+      "Identifies incorrect ownership and unassigned sales records.",
+      "Flags stale contacts, accounts and deals using agreed inactivity rules.",
+      "Routes risky merges and field changes through a human approval queue.",
+      "Produces a recurring CRM data-quality score and exception report.",
+    ],
     steps: ["Scan", "Normalise", "Dedupe", "Enrich", "Approve", "Report"],
     metric: "Data completeness",
   },
@@ -112,7 +161,16 @@ const automations: Automation[] = [
     complexity: "Medium",
     fit: "Teams with a meaningful database of stalled or closed-lost deals.",
     threshold: "Needs reliable loss reasons and previous activity data.",
-    tools: ["HubSpot", "Salesforce", "Zoho", "Apollo", "Clay"],
+    tools: ["HubSpot", "Zoho", "Salesforce", "Freshsales", "Pipedrive", "Apollo", "Clay", "Email platforms"],
+    details: [
+      "Finds stalled, closed-lost and no-response opportunities in the CRM.",
+      "Segments records using loss reason, account fit and last activity.",
+      "Checks eligible accounts for new hiring, funding or business signals.",
+      "Prioritises the accounts with the strongest reason to revisit now.",
+      "Creates context-aware re-engagement drafts for salesperson approval.",
+      "Routes positive responses back to the correct account owner.",
+      "Tracks reactivated conversations and reopened opportunities in the CRM.",
+    ],
     steps: ["Find", "Segment", "Signal", "Prioritise", "Draft", "Track"],
     metric: "Deals reopened",
   },
@@ -128,7 +186,16 @@ const automations: Automation[] = [
     complexity: "Low",
     fit: "Teams sending 20+ proposals or quotations each month.",
     threshold: "Works best when proposals follow a standard process.",
-    tools: ["PandaDoc", "DocuSign", "HubSpot", "Gmail", "Outlook"],
+    tools: ["PandaDoc", "DocuSign", "HubSpot Quotes", "Zoho", "Salesforce", "Gmail", "Outlook", "Slack"],
+    details: [
+      "Detects when a proposal, quotation or commercial document is sent.",
+      "Creates the next follow-up date using your sales process rules.",
+      "Reminds the salesperson before a proposal becomes overdue.",
+      "Drafts a context-aware follow-up using the opportunity information.",
+      "Escalates proposals that remain open without an agreed next step.",
+      "Updates the deal stage, activity and next-action fields in the CRM.",
+      "Produces a manager view of proposals that are stalled or need attention.",
+    ],
     steps: ["Detect", "Schedule", "Remind", "Draft", "Escalate", "Update"],
     metric: "Deals with next step",
   },
@@ -144,7 +211,16 @@ const automations: Automation[] = [
     complexity: "High",
     fit: "Companies with meaningful website, product or first-party activity.",
     threshold: "Not suitable when traffic is too low to produce usable signals.",
-    tools: ["GA4", "PostHog", "Segment", "HubSpot", "Slack"],
+    tools: ["GA4", "PostHog", "Segment", "HubSpot", "Zoho", "Salesforce", "Visitor identification tools", "Slack", "Teams"],
+    details: [
+      "Captures agreed website, pricing-page, product or campaign activity.",
+      "Resolves the visitor or activity to an account where the data allows it.",
+      "Checks the CRM for the account’s owner, history and open opportunities.",
+      "Combines account fit and behavioural intent into one priority score.",
+      "Filters out low-confidence signals before they reach the sales team.",
+      "Alerts the appropriate salesperson with context and a recommended action.",
+      "Creates the CRM task and tracks whether the signal was actioned.",
+    ],
     steps: ["Capture", "Resolve", "Match", "Score", "Alert", "Track"],
     metric: "Alert-to-action time",
   },
@@ -160,7 +236,16 @@ const automations: Automation[] = [
     complexity: "Medium",
     fit: "Companies generating leads through several campaigns and forms.",
     threshold: "Most valuable above 100 leads/month across multiple sources.",
-    tools: ["Webflow", "Typeform", "HubSpot", "LinkedIn Ads", "GA4"],
+    tools: ["HubSpot", "Zoho", "Salesforce", "Webflow", "WordPress", "Typeform", "Google Ads", "LinkedIn Ads", "GA4", "Spreadsheets"],
+    details: [
+      "Captures source and campaign information.",
+      "Standardises UTM values.",
+      "Connects form submissions with CRM records.",
+      "Prevents source information from being overwritten.",
+      "Updates campaign membership.",
+      "Flags records with missing attribution.",
+      "Produces a lead-source exception report.",
+    ],
     steps: ["Capture", "Standardise", "Match", "Protect", "Sync", "Flag"],
     metric: "Attributed leads",
   },
@@ -176,7 +261,17 @@ const automations: Automation[] = [
     complexity: "High",
     fit: "Subscription businesses with 50+ active customers.",
     threshold: "Requires usable renewal, billing or product-usage data.",
-    tools: ["Stripe", "Chargebee", "HubSpot", "Salesforce", "Slack"],
+    tools: ["Stripe", "Chargebee", "HubSpot", "Zoho", "Salesforce", "Customer support tools", "Product databases", "Slack", "Email"],
+    details: [
+      "Monitors upcoming renewal dates and required customer-contact windows.",
+      "Combines billing, product-usage and support signals where available.",
+      "Flags accounts showing potential renewal or adoption risk.",
+      "Identifies customers displaying potential expansion signals.",
+      "Assigns the appropriate renewal or expansion task to the account owner.",
+      "Escalates upcoming renewals that have no recent activity or next step.",
+      "Records the outreach, account status and agreed actions in the CRM.",
+      "Produces a recurring report of renewals and expansion opportunities requiring attention.",
+    ],
     steps: ["Monitor", "Combine", "Flag", "Assign", "Escalate", "Record"],
     metric: "Renewals covered",
   },
@@ -218,6 +313,22 @@ export default function Home() {
     const payback = netMonthly > 0 ? setupCost / netMonthly : 0;
     return { currentHours, hoursSaved, monthlyValue, netMonthly, percentage, payback };
   }, [volume, minutes, hourlyCost, coverage, runCost, setupCost]);
+
+  useEffect(() => {
+    if (!selected) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSelected(null);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [selected]);
 
   return (
     <main>
@@ -429,6 +540,12 @@ export default function Home() {
             <div className="modal-flow">
               {selected.steps.map((step, index) => <div key={step}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step}</strong></div>)}
             </div>
+            <div className="modal-detail-copy">
+              <span>THE AUTOMATION</span>
+              <ul>
+                {selected.details.map((detail) => <li key={detail}>{detail}</li>)}
+              </ul>
+            </div>
             <div className="modal-facts">
               <div><span>Setup investment</span><strong>{selected.setup}</strong></div>
               <div><span>Monthly run cost</span><strong>{selected.monthly}</strong></div>
@@ -439,7 +556,7 @@ export default function Home() {
               <div><span>GOOD FIT</span><p>{selected.fit}</p></div>
               <div><span>CHECK FIRST</span><p>{selected.threshold}</p></div>
             </div>
-            <div className="tool-list"><span>COMMON TOOLS</span>{selected.tools.map((tool) => <i key={tool}>{tool}</i>)}</div>
+            <div className="tool-list"><span>SUPPORTED TOOLS</span>{selected.tools.map((tool) => <i key={tool}>{tool}</i>)}</div>
             <a className="button button-dark" href="#roi" onClick={() => setSelected(null)}>Calculate the ROI <span>↗</span></a>
           </section>
         </div>
