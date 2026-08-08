@@ -333,9 +333,9 @@ export default function Home() {
   return (
     <main>
       <nav className="nav shell" aria-label="Primary navigation">
-        <a className="brand" href="#top" aria-label="GTM Auto home">
-          <span className="brand-mark">G/A</span>
-          <span>GTM/AUTO</span>
+        <a className="brand" href="#top" aria-label="GTM Flows home">
+          <span className="brand-mark">G/F</span>
+          <span>GTM/FLOWS</span>
         </a>
         <div className="nav-links">
           <a href="#catalogue">Catalogue</a>
@@ -525,7 +525,7 @@ export default function Home() {
       </section>
 
       <footer className="footer shell">
-        <div className="brand"><span className="brand-mark">G/A</span><span>GTM/AUTO</span></div>
+        <div className="brand"><span className="brand-mark">G/F</span><span>GTM/FLOWS</span></div>
         <p>Fixed-price GTM automations for B2B sales teams.</p>
         <div><a href="#catalogue">Catalogue</a><a href="#roi">ROI</a><a href="#top">Back to top ↑</a></div>
       </footer>

@@ -20,14 +20,14 @@ export async function generateMetadata(): Promise<Metadata> {
   const origin = `${protocol}://${host}`;
 
   return {
-    title: "GTM/AUTO — GTM Automation Catalogue",
+    title: "GTM Flows — GTM Automation Catalogue",
     description: "Browse fixed-price GTM automations with transparent setup costs, monthly running costs, implementation time and ROI.",
     openGraph: {
       title: "Know what to automate. Know what it costs.",
       description: "10 ready-to-deploy GTM automations with transparent costs, implementation time and ROI.",
       type: "website",
       url: origin,
-      images: [{ url: `${origin}/og.png`, width: 1200, height: 630, alt: "GTM/AUTO automation catalogue" }],
+      images: [{ url: `${origin}/og.png`, width: 1200, height: 630, alt: "GTM Flows automation catalogue" }],
     },
     twitter: {
       card: "summary_large_image",
