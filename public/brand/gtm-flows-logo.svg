@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 360" role="img" aria-labelledby="title desc">
+  <title id="title">GTM Flows logo</title>
+  <desc id="desc">GTM Flows horizontal logo with monogram and wordmark.</desc>
+  <rect width="1440" height="360" rx="0" fill="transparent"/>
+  <g transform="translate(48 52)">
+    <rect width="256" height="256" rx="64" fill="#151515"/>
+    <circle cx="128" cy="128" r="92" fill="#d9ff57"/>
+    <path d="M76 133c0-33 23-55 58-55 19 0 34 5 46 14l-20 29c-7-6-15-9-26-9-16 0-26 9-26 22 0 14 11 23 28 23 7 0 14-1 19-4v-13h-28v-27h61v59c-15 10-32 15-54 15-36 0-59-22-59-54Z" fill="#151515"/>
+    <path d="M203 73h-25l-51 122h25l51-122Z" fill="#151515"/>
+    <circle cx="192" cy="192" r="16" fill="#5367ff"/>
+  </g>
+  <g fill="#151515">
+    <text x="352" y="151" font-family="Inter, Geist, Arial, Helvetica, sans-serif" font-size="104" font-weight="850" letter-spacing="-5">GTM</text>
+    <text x="352" y="254" font-family="Inter, Geist, Arial, Helvetica, sans-serif" font-size="104" font-weight="850" letter-spacing="-5">FLOWS</text>
+  </g>
+  <g transform="translate(815 95)">
+    <rect x="0" y="0" width="374" height="56" rx="28" fill="#d9ff57"/>
+    <text x="32" y="37" font-family="Inter, Geist Mono, Arial, Helvetica, sans-serif" font-size="21" font-weight="800" letter-spacing="2" fill="#151515">GTM AUTOMATIONS</text>
+    <path d="M430 28h138" stroke="#151515" stroke-width="10" stroke-linecap="round"/>
+    <path d="M548 8l24 20-24 20" fill="none" stroke="#151515" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="815" y="214" font-family="Inter, Geist, Arial, Helvetica, sans-serif" font-size="36" font-weight="650" letter-spacing="-1.2" fill="#42423d">B2B sales workflows that move</text>
+  <text x="815" y="260" font-family="Inter, Geist, Arial, Helvetica, sans-serif" font-size="36" font-weight="650" letter-spacing="-1.2" fill="#42423d">from manual to measurable.</text>
+</svg>

@@ -20,9 +20,13 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(CANONICAL_ORIGIN),
     alternates: { canonical: CANONICAL_ORIGIN },
     icons: {
-      icon: "/favicon.svg",
+      icon: [
+        { url: "/favicon.svg", type: "image/svg+xml" },
+        { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+        { url: "/favicon-192.png", sizes: "192x192", type: "image/png" },
+      ],
       shortcut: "/favicon.svg",
-      apple: "/favicon.svg",
+      apple: "/favicon.png",
     },
     openGraph: {
       title: "Know what to automate. Know what it costs.",

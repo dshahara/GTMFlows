@@ -1,6 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="18" fill="#151515"/>
-  <circle cx="32" cy="32" r="24" fill="#d9ff57"/>
-  <path d="M20 34c0-8 5-13 13-13 4 0 7 1 10 3l-4 6c-2-1-4-2-6-2-4 0-7 2-7 6s3 6 7 6c2 0 4 0 5-1v-3h-6v-6h13v13c-3 2-7 3-12 3-8 0-13-5-13-12Z" fill="#151515"/>
-  <path d="M49 20h-4L34 48h4L49 20Z" fill="#151515"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">GTM Flows favicon</title>
+  <desc id="desc">A lime GTM Flows monogram on an ink background.</desc>
+  <rect width="512" height="512" rx="128" fill="#151515"/>
+  <circle cx="256" cy="256" r="184" fill="#d9ff57"/>
+  <path d="M152 266c0-66 45-109 115-109 38 0 68 10 92 28l-39 58c-14-11-31-17-51-17-31 0-51 17-51 43 0 27 21 45 55 45 14 0 27-2 38-7v-26h-55v-54h121v117c-29 20-64 30-107 30-71 0-118-43-118-108Z" fill="#151515"/>
+  <path d="M405 145h-50L253 389h50L405 145Z" fill="#151515"/>
 </svg>

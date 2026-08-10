@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import test from "node:test";
 
 const root = new URL("../", import.meta.url);
@@ -73,8 +73,37 @@ test("keeps public navigation customer-facing and defines a favicon", async () =
   assert.doesNotMatch(homepage, /href="\/admin">Admin/);
   assert.doesNotMatch(detailPage, /href="\/admin">Admin/);
   assert.match(layout, /favicon\.svg/);
+  assert.match(layout, /favicon-32\.png/);
+  assert.match(layout, /favicon-192\.png/);
   assert.match(favicon, /<svg/);
   assert.match(favicon, /#d9ff57/);
+});
+
+test("ships brand assets for logo, favicon and LinkedIn banner", async () => {
+  const assets = [
+    "public/brand/gtm-flows-logo.svg",
+    "public/brand/gtm-flows-logo.png",
+    "public/brand/gtm-flows-mark.svg",
+    "public/brand/gtm-flows-mark.png",
+    "public/brand/linkedin-banner.svg",
+    "public/brand/linkedin-banner.png",
+    "public/favicon.png",
+    "public/favicon-192.png",
+    "public/favicon-32.png",
+  ];
+
+  for (const asset of assets) {
+    const info = await stat(new URL(asset, root));
+    assert.ok(info.size > 0, `${asset} should not be empty`);
+  }
+
+  const [logo, banner] = await Promise.all([
+    text("public/brand/gtm-flows-logo.svg"),
+    text("public/brand/linkedin-banner.svg"),
+  ]);
+  assert.match(logo, />GTM</);
+  assert.match(logo, />FLOWS</);
+  assert.match(banner, /GTM automations for B2B sales teams/);
 });
 
 test("accepts contact inquiries through a Slack-ready endpoint", async () => {
