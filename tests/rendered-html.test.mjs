@@ -77,17 +77,16 @@ test("keeps public navigation customer-facing and defines a favicon", async () =
   assert.match(layout, /favicon-32\.png/);
   assert.match(layout, /favicon-192\.png/);
   assert.match(favicon, /<svg/);
-  assert.match(favicon, /#d9ff57/);
+  assert.match(favicon, /data:image\/png;base64/);
+  assert.match(homepage, /src="\/gf-logo\.png"/);
+  assert.match(detailPage, /src="\/gf-logo\.png"/);
+  assert.match(footer, /src="\/gf-logo\.png"/);
 });
 
-test("ships brand assets for logo, favicon and LinkedIn banner", async () => {
+test("ships the uploaded logo and favicon assets without public brand-detail downloads", async () => {
   const assets = [
-    "public/brand/gtm-flows-logo.svg",
-    "public/brand/gtm-flows-logo.png",
-    "public/brand/gtm-flows-mark.svg",
-    "public/brand/gtm-flows-mark.png",
-    "public/brand/linkedin-banner.svg",
-    "public/brand/linkedin-banner.png",
+    "public/gf-logo.svg",
+    "public/gf-logo.png",
     "public/favicon.png",
     "public/favicon.ico",
     "public/favicon-192.png",
@@ -99,13 +98,20 @@ test("ships brand assets for logo, favicon and LinkedIn banner", async () => {
     assert.ok(info.size > 0, `${asset} should not be empty`);
   }
 
-  const [logo, banner] = await Promise.all([
-    text("public/brand/gtm-flows-logo.svg"),
-    text("public/brand/linkedin-banner.svg"),
-  ]);
-  assert.match(logo, />GTM</);
-  assert.match(logo, />FLOWS</);
-  assert.match(banner, /GTM automations for B2B sales teams/);
+  const oldPublicBrandAssets = [
+    "public/brand/gtm-flows-logo.svg",
+    "public/brand/gtm-flows-logo.png",
+    "public/brand/gtm-flows-mark.svg",
+    "public/brand/gtm-flows-mark.png",
+    "public/brand/linkedin-banner.svg",
+    "public/brand/linkedin-banner.png",
+  ];
+  for (const asset of oldPublicBrandAssets) {
+    await assert.rejects(stat(new URL(asset, root)));
+  }
+
+  const logo = await text("public/gf-logo.svg");
+  assert.match(logo, /data:image\/png;base64/);
 });
 
 test("accepts contact inquiries through a Slack-ready endpoint", async () => {

@@ -56,7 +56,7 @@ export function SiteFooter({ source = "Website footer" }: SiteFooterProps) {
         <section className="footer-main" aria-label="GTM Flows contact information">
           <div>
             <a className="brand footer-brand" href="/" aria-label="GTM Flows home">
-              <span className="brand-mark">G/F</span>
+              <img className="brand-logo" src="/gf-logo.png" alt="" />
               <span>GTM/FLOWS</span>
             </a>
             <p className="footer-tagline">GTM automations for B2B sales teams.</p>

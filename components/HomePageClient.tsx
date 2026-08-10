@@ -44,7 +44,7 @@ export function HomePageClient({ automations }: HomePageClientProps) {
     <main>
       <nav className="nav shell" aria-label="Primary navigation">
         <a className="brand" href="#top" aria-label="GTM Flows home">
-          <span className="brand-mark">G/F</span>
+          <img className="brand-logo" src="/gf-logo.png" alt="" />
           <span>GTM/FLOWS</span>
         </a>
         <div className="nav-links">

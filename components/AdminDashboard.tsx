@@ -93,7 +93,7 @@ export function AdminDashboard({ initialRecords, userEmail }: AdminDashboardProp
   return (
     <main className="admin-shell">
       <aside className="admin-sidebar">
-        <a className="brand" href="/" aria-label="GTM Flows home"><span className="brand-mark">G/F</span><span>GTM/FLOWS</span></a>
+        <a className="brand" href="/" aria-label="GTM Flows home"><img className="brand-logo" src="/gf-logo.png" alt="" /><span>GTM/FLOWS</span></a>
         <div className="admin-user"><span>Signed in</span><strong>{userEmail}</strong></div>
         <button className="admin-button primary" onClick={() => mutate({ action: "create" }, "Automation created.")}>+ New automation</button>
         <div className="admin-filters">

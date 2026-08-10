@@ -103,7 +103,7 @@ export default async function AutomationPage({ params }: PageProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <nav className="nav shell" aria-label="Primary navigation">
         <a className="brand" href="/" aria-label="GTM Flows home">
-          <span className="brand-mark">G/F</span>
+          <img className="brand-logo" src="/gf-logo.png" alt="" />
           <span>GTM/FLOWS</span>
         </a>
         <div className="nav-links">

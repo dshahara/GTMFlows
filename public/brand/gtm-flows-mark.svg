@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
-  <title id="title">GTM Flows mark</title>
-  <desc id="desc">A square GTM Flows monogram built from a G and forward slash.</desc>
-  <rect width="1024" height="1024" rx="256" fill="#151515"/>
-  <circle cx="512" cy="512" r="368" fill="#d9ff57"/>
-  <path d="M304 532c0-132 90-218 230-218 76 0 136 20 184 56l-78 116c-28-22-62-34-102-34-62 0-102 34-102 86 0 54 42 90 110 90 28 0 54-4 76-14v-52H512V454h242v234c-58 40-128 60-214 60-142 0-236-86-236-216Z" fill="#151515"/>
-  <path d="M810 290H710L506 778h100L810 290Z" fill="#151515"/>
-  <path d="M764 708c36 0 64 28 64 64s-28 64-64 64-64-28-64-64 28-64 64-64Z" fill="#5367ff"/>
-</svg>

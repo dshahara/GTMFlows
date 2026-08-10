@@ -28,7 +28,7 @@ export default async function AdminPreviewPage({ params }: PageProps) {
     <main className="automation-page admin-preview-page">
       <nav className="nav shell" aria-label="Admin preview navigation">
         <a className="brand" href="/admin" aria-label="Back to GTM Flows admin">
-          <span className="brand-mark">G/F</span>
+          <img className="brand-logo" src="/gf-logo.png" alt="" />
           <span>GTM/FLOWS</span>
         </a>
         <div className="nav-links">
