@@ -79,6 +79,10 @@ export function SiteFooter({ source = "Website footer" }: SiteFooterProps) {
               </a>
             </div>
             <div>
+              <span>Email</span>
+              <a href="mailto:contact@gtmflows.co">contact@gtmflows.co</a>
+            </div>
+            <div>
               <span>Response</span>
               <p>We usually review new fit-check requests within one business day.</p>
             </div>

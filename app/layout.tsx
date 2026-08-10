@@ -21,11 +21,12 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: { canonical: CANONICAL_ORIGIN },
     icons: {
       icon: [
+        { url: "/favicon.ico", sizes: "any" },
         { url: "/favicon.svg", type: "image/svg+xml" },
         { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
         { url: "/favicon-192.png", sizes: "192x192", type: "image/png" },
       ],
-      shortcut: "/favicon.svg",
+      shortcut: "/favicon.ico",
       apple: "/favicon.png",
     },
     openGraph: {

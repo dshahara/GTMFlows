@@ -65,14 +65,15 @@ test("keeps public navigation customer-facing and defines a favicon", async () =
   assert.match(footer, /GTM automations for B2B sales teams\./);
   assert.match(footer, /HSR Layout, Bengaluru/);
   assert.match(footer, /linkedin\.com\/company\/gtm-flows/);
+  assert.match(footer, /contact@gtmflows\.co/);
   assert.match(footer, /\/api\/contact/);
   assert.match(footer, /We’ll review your tools, volume and fit/);
-  assert.doesNotMatch(footer, /hello@gtmflows\.co/);
   assert.doesNotMatch(footer, /Slack workspace/);
   assert.doesNotMatch(homepage, /Fixed-price GTM automations for B2B sales teams\./);
   assert.doesNotMatch(homepage, /href="\/admin">Admin/);
   assert.doesNotMatch(detailPage, /href="\/admin">Admin/);
   assert.match(layout, /favicon\.svg/);
+  assert.match(layout, /favicon\.ico/);
   assert.match(layout, /favicon-32\.png/);
   assert.match(layout, /favicon-192\.png/);
   assert.match(favicon, /<svg/);
@@ -88,6 +89,7 @@ test("ships brand assets for logo, favicon and LinkedIn banner", async () => {
     "public/brand/linkedin-banner.svg",
     "public/brand/linkedin-banner.png",
     "public/favicon.png",
+    "public/favicon.ico",
     "public/favicon-192.png",
     "public/favicon-32.png",
   ];
