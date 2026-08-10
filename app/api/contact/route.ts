@@ -75,8 +75,16 @@ function validateInquiry(inquiry: ReturnType<typeof normalizeInquiry>) {
 }
 
 function getEnvString(key: string) {
-  const value = (env as unknown as Record<string, unknown>)[key];
-  return typeof value === "string" && value.trim() ? value.trim() : "";
+  const values = [
+    (env as unknown as Record<string, unknown>)[key],
+    typeof process !== "undefined" ? process.env[key] : undefined,
+  ];
+
+  for (const value of values) {
+    if (typeof value === "string" && value.trim()) return value.trim();
+  }
+
+  return "";
 }
 
 function toSlackMessage(inquiry: ReturnType<typeof normalizeInquiry>, requestUrl: string) {
