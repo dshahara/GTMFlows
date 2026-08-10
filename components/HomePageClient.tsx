@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { PublicAutomation } from "@/lib/catalogue";
 import { categories, formatFullRupees } from "@/lib/catalogue";
 
@@ -10,7 +10,6 @@ type HomePageClientProps = {
 
 export function HomePageClient({ automations }: HomePageClientProps) {
   const [category, setCategory] = useState("All");
-  const [selected, setSelected] = useState<PublicAutomation | null>(null);
   const [volume, setVolume] = useState(500);
   const [minutes, setMinutes] = useState(12);
   const [hourlyCost, setHourlyCost] = useState(600);
@@ -39,20 +38,6 @@ export function HomePageClient({ automations }: HomePageClientProps) {
     const payback = netMonthly > 0 ? setupCost / netMonthly : 0;
     return { currentHours, hoursSaved, monthlyValue, netMonthly, percentage, payback };
   }, [volume, minutes, hourlyCost, coverage, runCost, setupCost]);
-
-  useEffect(() => {
-    if (!selected) return;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setSelected(null);
-    };
-    window.addEventListener("keydown", closeOnEscape);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", closeOnEscape);
-    };
-  }, [selected]);
 
   return (
     <main>
@@ -154,10 +139,7 @@ export function HomePageClient({ automations }: HomePageClientProps) {
                 <div><dt>Complexity</dt><dd><span className={`complexity ${item.complexity.toLowerCase()}`}>{item.complexity}</span></dd></div>
               </dl>
               <div className="fit-note"><span>Best fit</span>{item.fit}</div>
-              <div className="card-actions-row">
-                <button className="card-action" onClick={() => setSelected(item)}>Quick view <span>↗</span></button>
-                <a className="card-action card-link" href={`/automations/${item.slug}`}>SEO page <span>→</span></a>
-              </div>
+              <a className="card-action card-link" href={`/automations/${item.slug}`}>View details <span>→</span></a>
             </article>
           ))}
         </div>
@@ -253,38 +235,6 @@ export function HomePageClient({ automations }: HomePageClientProps) {
         <div><a href="#catalogue">Catalogue</a><a href="#roi">ROI</a><a href="/admin">Admin</a><a href="#top">Back to top ↑</a></div>
       </footer>
 
-      {selected && (
-        <div className="modal-backdrop" role="presentation" onMouseDown={() => setSelected(null)}>
-          <section className={`modal accent-${selected.accent}`} role="dialog" aria-modal="true" aria-labelledby="modal-title" onMouseDown={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setSelected(null)} aria-label="Close automation details">×</button>
-            <span className="section-number">AUTOMATION {String(selected.order).padStart(2, "0")}</span>
-            <h2 id="modal-title">{selected.name}</h2>
-            <p className="modal-short">{selected.short}</p>
-            <div className="modal-flow">
-              {selected.steps.map((step, index) => <div key={`${selected.slug}-${step}`}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step}</strong></div>)}
-            </div>
-            <div className="modal-detail-copy">
-              <span>THE AUTOMATION</span>
-              <ul>{selected.details.map((detail) => <li key={detail}>{detail}</li>)}</ul>
-            </div>
-            <div className="modal-facts">
-              <div><span>Setup investment</span><strong>{selected.setup}</strong></div>
-              <div><span>Monthly run cost</span><strong>{selected.monthly}</strong></div>
-              <div><span>Implementation</span><strong>{selected.days}</strong></div>
-              <div><span>Primary metric</span><strong>{selected.metric}</strong></div>
-            </div>
-            <div className="modal-notes">
-              <div><span>GOOD FIT</span><p>{selected.fit}</p></div>
-              <div><span>CHECK FIRST</span><p>{selected.threshold}</p></div>
-            </div>
-            <div className="tool-list"><span>SUPPORTED TOOLS</span>{selected.tools.map((tool) => <i key={tool}>{tool}</i>)}</div>
-            <div className="modal-actions">
-              <a className="button button-dark" href="#roi" onClick={() => setSelected(null)}>Calculate the ROI <span>↗</span></a>
-              <a className="button button-light" href={`/automations/${selected.slug}`}>Open full page <span>→</span></a>
-            </div>
-          </section>
-        </div>
-      )}
     </main>
   );
 }

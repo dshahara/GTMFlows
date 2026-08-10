@@ -42,6 +42,17 @@ test("keeps admin access behind ChatGPT sign-in and email allowlist", async () =
   assert.match(catalogue, /amrish\.connect@gmail\.com/);
 });
 
+test("uses a single customer-facing card action that opens the detail page", async () => {
+  const homepage = await text("components/HomePageClient.tsx");
+
+  assert.match(homepage, /View details/);
+  assert.match(homepage, /href=\{`\/automations\/\$\{item\.slug\}`\}/);
+  assert.doesNotMatch(homepage, /Quick view/);
+  assert.doesNotMatch(homepage, /SEO page/);
+  assert.doesNotMatch(homepage, /setSelected/);
+  assert.doesNotMatch(homepage, /modal-backdrop/);
+});
+
 test("adds SEO, AEO and crawl-control routes", async () => {
   const [detailPage, sitemap, robots, llms, layout] = await Promise.all([
     text("app/automations/[slug]/page.tsx"),
