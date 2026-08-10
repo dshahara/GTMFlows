@@ -45,7 +45,7 @@ type AdminAction =
   | { action: "create"; partial?: Partial<AutomationContent> }
   | { action: "update"; id: number; draft: AutomationContent }
   | { action: "duplicate"; id: number }
-  | { action: "publish"; id: number }
+  | { action: "publish"; id: number; draft?: AutomationContent }
   | { action: "unpublish"; id: number }
   | { action: "archive"; id: number }
   | { action: "restore"; id: number }
@@ -60,6 +60,9 @@ async function runAction(payload: AdminAction, email: string) {
     case "duplicate":
       return duplicateAutomation(Number(payload.id), email);
     case "publish":
+      if (payload.draft) {
+        await updateAutomationDraft(Number(payload.id), payload.draft, email);
+      }
       return publishAutomation(Number(payload.id), email);
     case "unpublish":
       return unpublishAutomation(Number(payload.id), email);

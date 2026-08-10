@@ -53,6 +53,25 @@ test("uses a single customer-facing card action that opens the detail page", asy
   assert.doesNotMatch(homepage, /modal-backdrop/);
 });
 
+test("publishes the current editor draft and exposes a protected draft preview", async () => {
+  const [dashboard, apiRoute, previewPage] = await Promise.all([
+    text("components/AdminDashboard.tsx"),
+    text("app/api/admin/automations/route.ts"),
+    text("app/admin/preview/[id]/page.tsx"),
+  ]);
+
+  assert.match(dashboard, /Publish draft/);
+  assert.match(dashboard, /draft: selected/);
+  assert.match(dashboard, /Preview draft page/);
+  assert.match(dashboard, /Open published/);
+  assert.doesNotMatch(dashboard, /Preview live/);
+  assert.match(apiRoute, /payload\.draft/);
+  assert.match(apiRoute, /updateAutomationDraft/);
+  assert.match(previewPage, /requireChatGPTUser\("\/admin"\)/);
+  assert.match(previewPage, /getCatalogueRecord/);
+  assert.match(previewPage, /DIRECT ANSWER PREVIEW/);
+});
+
 test("adds SEO, AEO and crawl-control routes", async () => {
   const [detailPage, sitemap, robots, llms, layout] = await Promise.all([
     text("app/automations/[slug]/page.tsx"),

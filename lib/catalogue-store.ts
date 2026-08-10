@@ -66,6 +66,12 @@ export async function getCatalogueRecords(): Promise<AutomationRecord[]> {
   return (result.results ?? []).map(rowToRecord);
 }
 
+export async function getCatalogueRecord(id: number): Promise<AutomationRecord | null> {
+  const db = await prepareDatabase();
+  const row = await db.prepare("SELECT * FROM automations WHERE id = ? LIMIT 1").bind(id).first<D1Row>();
+  return row ? rowToRecord(row) : null;
+}
+
 export async function getPublishedAutomations(): Promise<PublicAutomation[]> {
   try {
     const records = await getCatalogueRecords();

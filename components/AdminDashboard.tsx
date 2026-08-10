@@ -128,8 +128,13 @@ export function AdminDashboard({ initialRecords, userEmail }: AdminDashboardProp
           </div>
           <div className="admin-actions">
             <button className="admin-button" disabled={isPending} onClick={saveDraft}>Save draft</button>
-            <button className="admin-button primary" disabled={isPending} onClick={() => mutate({ action: "publish", id: selectedRecord.id }, "Published to the website.")}>Publish</button>
-            <a className="admin-button" href={`/automations/${selected.slug}`} target="_blank">Preview live</a>
+            <button className="admin-button primary" disabled={isPending} onClick={() => mutate({ action: "publish", id: selectedRecord.id, draft: selected }, "Published to the website.")}>Publish draft</button>
+            <a className="admin-button" href={`/admin/preview/${selectedRecord.id}`} target="_blank">Preview draft page</a>
+            {selectedRecord.published ? (
+              <a className="admin-button" href={`/automations/${selectedRecord.published.slug}`} target="_blank">Open published</a>
+            ) : (
+              <span className="admin-button disabled">No published page</span>
+            )}
           </div>
         </header>
 
@@ -162,7 +167,7 @@ export function AdminDashboard({ initialRecords, userEmail }: AdminDashboardProp
           </section>
 
           <section className="editor-panel">
-            <div className="panel-heading"><span>Operational copy</span><strong>Popup and page details</strong></div>
+            <div className="panel-heading"><span>Operational copy</span><strong>Detail page copy</strong></div>
             <TextareaList label="The automation" value={selected.details} onChange={(details) => updateDraft({ details })} />
             <TextareaList label="Workflow steps" value={selected.steps} onChange={(steps) => updateDraft({ steps })} />
             <TextareaList label="Supported tools" value={selected.tools} onChange={(tools) => updateDraft({ tools })} />
