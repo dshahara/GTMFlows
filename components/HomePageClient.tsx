@@ -50,7 +50,6 @@ export function HomePageClient({ automations }: HomePageClientProps) {
           <a href="#catalogue">Catalogue</a>
           <a href="#roi">ROI calculator</a>
           <a href="#process">How it works</a>
-          <a href="/admin">Admin</a>
         </div>
         <a className="button button-dark nav-cta" href="#catalogue">Find my automation <span>↗</span></a>
       </nav>
@@ -231,8 +230,8 @@ export function HomePageClient({ automations }: HomePageClientProps) {
 
       <footer className="footer shell">
         <div className="brand"><span className="brand-mark">G/F</span><span>GTM/FLOWS</span></div>
-        <p>Fixed-price GTM automations for B2B sales teams.</p>
-        <div><a href="#catalogue">Catalogue</a><a href="#roi">ROI</a><a href="/admin">Admin</a><a href="#top">Back to top ↑</a></div>
+        <p>GTM automations for B2B sales teams.</p>
+        <div><a href="#catalogue">Catalogue</a><a href="#roi">ROI</a><a href="#top">Back to top ↑</a></div>
       </footer>
 
     </main>

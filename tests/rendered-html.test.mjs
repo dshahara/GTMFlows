@@ -53,6 +53,23 @@ test("uses a single customer-facing card action that opens the detail page", asy
   assert.doesNotMatch(homepage, /modal-backdrop/);
 });
 
+test("keeps public navigation customer-facing and defines a favicon", async () => {
+  const [homepage, detailPage, layout, favicon] = await Promise.all([
+    text("components/HomePageClient.tsx"),
+    text("app/automations/[slug]/page.tsx"),
+    text("app/layout.tsx"),
+    text("public/favicon.svg"),
+  ]);
+
+  assert.match(homepage, /GTM automations for B2B sales teams\./);
+  assert.doesNotMatch(homepage, /Fixed-price GTM automations for B2B sales teams\./);
+  assert.doesNotMatch(homepage, /href="\/admin">Admin/);
+  assert.doesNotMatch(detailPage, /href="\/admin">Admin/);
+  assert.match(layout, /favicon\.svg/);
+  assert.match(favicon, /<svg/);
+  assert.match(favicon, /#d9ff57/);
+});
+
 test("publishes the current editor draft and exposes a protected draft preview", async () => {
   const [dashboard, apiRoute, previewPage] = await Promise.all([
     text("components/AdminDashboard.tsx"),

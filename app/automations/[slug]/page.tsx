@@ -108,7 +108,6 @@ export default async function AutomationPage({ params }: PageProps) {
         <div className="nav-links">
           <a href="/#catalogue">Catalogue</a>
           <a href="/#roi">ROI calculator</a>
-          <a href="/admin">Admin</a>
         </div>
         <a className="button button-dark nav-cta" href="mailto:hello@gtmflows.co">Discuss this flow <span>↗</span></a>
       </nav>

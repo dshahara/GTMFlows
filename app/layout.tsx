@@ -19,6 +19,11 @@ export async function generateMetadata(): Promise<Metadata> {
     description: "Browse fixed-price GTM automations with transparent setup costs, monthly running costs, implementation time and ROI.",
     metadataBase: new URL(CANONICAL_ORIGIN),
     alternates: { canonical: CANONICAL_ORIGIN },
+    icons: {
+      icon: "/favicon.svg",
+      shortcut: "/favicon.svg",
+      apple: "/favicon.svg",
+    },
     openGraph: {
       title: "Know what to automate. Know what it costs.",
       description: "10 ready-to-deploy GTM automations with transparent costs, implementation time and ROI.",
