@@ -20,7 +20,7 @@ export async function GET() {
     ]),
     "## Contact",
     "",
-    "Use hello@gtmflows.co for fit checks and catalogue automation enquiries.",
+    "Use the website contact form for fit checks and catalogue automation enquiries.",
   ];
 
   return new Response(lines.join("\n"), { headers: { "content-type": "text/plain; charset=utf-8" } });

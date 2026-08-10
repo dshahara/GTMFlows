@@ -73,14 +73,14 @@ export function SiteFooter({ source = "Website footer" }: SiteFooterProps) {
               <p>HSR Layout, Bengaluru, Karnataka, India</p>
             </div>
             <div>
-              <span>Email</span>
-              <a href="mailto:hello@gtmflows.co">hello@gtmflows.co</a>
-            </div>
-            <div>
               <span>Social</span>
-              <a href="https://www.linkedin.com/company/gtmflows/" target="_blank" rel="noreferrer">
+              <a href="https://www.linkedin.com/company/gtm-flows/" target="_blank" rel="noreferrer">
                 LinkedIn ↗
               </a>
+            </div>
+            <div>
+              <span>Response</span>
+              <p>We usually review new fit-check requests within one business day.</p>
             </div>
             <div>
               <span>Best for</span>
@@ -122,7 +122,7 @@ export function SiteFooter({ source = "Website footer" }: SiteFooterProps) {
             </button>
           </form>
           {message && <p className={`form-message ${status === "error" ? "error" : "success"}`}>{message}</p>}
-          <p className="contact-note">Inquiries are sent to the GTM Flows Slack workspace when Slack is configured.</p>
+          <p className="contact-note">We’ll review your tools, volume and fit before recommending a build.</p>
         </section>
 
         <div className="footer-bottom">

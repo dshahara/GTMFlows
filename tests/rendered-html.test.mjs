@@ -64,8 +64,11 @@ test("keeps public navigation customer-facing and defines a favicon", async () =
 
   assert.match(footer, /GTM automations for B2B sales teams\./);
   assert.match(footer, /HSR Layout, Bengaluru/);
-  assert.match(footer, /linkedin\.com\/company\/gtmflows/);
+  assert.match(footer, /linkedin\.com\/company\/gtm-flows/);
   assert.match(footer, /\/api\/contact/);
+  assert.match(footer, /We’ll review your tools, volume and fit/);
+  assert.doesNotMatch(footer, /hello@gtmflows\.co/);
+  assert.doesNotMatch(footer, /Slack workspace/);
   assert.doesNotMatch(homepage, /Fixed-price GTM automations for B2B sales teams\./);
   assert.doesNotMatch(homepage, /href="\/admin">Admin/);
   assert.doesNotMatch(detailPage, /href="\/admin">Admin/);
@@ -83,7 +86,7 @@ test("accepts contact inquiries through a Slack-ready endpoint", async () => {
   assert.match(contactRoute, /SLACK_WEBHOOK_URL/);
   assert.match(contactRoute, /fetch\(webhookUrl/);
   assert.match(contactRoute, /New GTM Flows inquiry/);
-  assert.match(contactRoute, /hello@gtmflows\.co/);
+  assert.doesNotMatch(contactRoute, /Please email hello@gtmflows\.co/);
   assert.match(envExample, /SLACK_WEBHOOK_URL=/);
 });
 

@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     const webhookUrl = getEnvString("SLACK_WEBHOOK_URL");
     if (!webhookUrl) {
       return Response.json(
-        { error: "Slack notifications are not configured yet. Please email hello@gtmflows.co for now." },
+        { error: "Inquiry delivery is temporarily unavailable. Please try again in a few minutes." },
         { status: 503 },
       );
     }
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
     return Response.json({ ok: true });
   } catch (error) {
     console.error("Contact inquiry failed", error);
-    return Response.json({ error: "Unable to send inquiry right now. Please email hello@gtmflows.co." }, { status: 500 });
+    return Response.json({ error: "Unable to send inquiry right now. Please try again in a few minutes." }, { status: 500 });
   }
 }
 
