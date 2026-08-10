@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
+import { SiteFooter } from "@/components/SiteFooter";
 import { CANONICAL_ORIGIN } from "@/lib/catalogue";
 import { findPublishedAutomationBySlug, getPublishedAutomations } from "@/lib/catalogue-store";
 
@@ -108,8 +109,9 @@ export default async function AutomationPage({ params }: PageProps) {
         <div className="nav-links">
           <a href="/#catalogue">Catalogue</a>
           <a href="/#roi">ROI calculator</a>
+          <a href="#contact">Contact</a>
         </div>
-        <a className="button button-dark nav-cta" href="mailto:hello@gtmflows.co">Discuss this flow <span>↗</span></a>
+        <a className="button button-dark nav-cta" href="#contact">Discuss this flow <span>↗</span></a>
       </nav>
 
       <section className={`detail-hero shell accent-${automation.accent}`}>
@@ -120,7 +122,7 @@ export default async function AutomationPage({ params }: PageProps) {
           <p>{automation.short}</p>
           <div className="detail-actions">
             <a className="button button-dark" href="/#roi">Calculate ROI <span>↗</span></a>
-            <a className="button button-light" href="mailto:hello@gtmflows.co">Book fit check <span>→</span></a>
+            <a className="button button-light" href="#contact">Book fit check <span>→</span></a>
           </div>
         </div>
         <aside className="answer-card">
@@ -204,9 +206,11 @@ export default async function AutomationPage({ params }: PageProps) {
         </div>
         <div>
           <p>We confirm volume, tools, edge cases and monthly running cost before recommending the build.</p>
-          <a className="button button-light" href="mailto:hello@gtmflows.co?subject=Fit%20check%20for%20GTM%20automation">Request a fit check <span>↗</span></a>
+          <a className="button button-light" href="#contact">Request a fit check <span>↗</span></a>
         </div>
       </section>
+
+      <SiteFooter source={`${automation.name} automation page`} />
     </main>
   );
 }

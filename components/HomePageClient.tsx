@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import type { PublicAutomation } from "@/lib/catalogue";
 import { categories, formatFullRupees } from "@/lib/catalogue";
+import { SiteFooter } from "@/components/SiteFooter";
 
 type HomePageClientProps = {
   automations: PublicAutomation[];
@@ -50,8 +51,9 @@ export function HomePageClient({ automations }: HomePageClientProps) {
           <a href="#catalogue">Catalogue</a>
           <a href="#roi">ROI calculator</a>
           <a href="#process">How it works</a>
+          <a href="#contact">Contact</a>
         </div>
-        <a className="button button-dark nav-cta" href="#catalogue">Find my automation <span>↗</span></a>
+        <a className="button button-dark nav-cta" href="#contact">Request fit check <span>↗</span></a>
       </nav>
 
       <section className="hero shell" id="top">
@@ -224,15 +226,11 @@ export function HomePageClient({ automations }: HomePageClientProps) {
         </div>
         <div>
           <p>Pick one repetitive process. We will confirm the fit, total operating cost and acceptance criteria before you commit.</p>
-          <a className="button button-light" href="mailto:hello@gtmflows.co?subject=Find%20my%20first%20automation">Find my first automation <span>↗</span></a>
+          <a className="button button-light" href="#contact">Find my first automation <span>↗</span></a>
         </div>
       </section>
 
-      <footer className="footer shell">
-        <div className="brand"><span className="brand-mark">G/F</span><span>GTM/FLOWS</span></div>
-        <p>GTM automations for B2B sales teams.</p>
-        <div><a href="#catalogue">Catalogue</a><a href="#roi">ROI</a><a href="#top">Back to top ↑</a></div>
-      </footer>
+      <SiteFooter source="Homepage contact form" />
 
     </main>
   );

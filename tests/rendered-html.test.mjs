@@ -54,20 +54,37 @@ test("uses a single customer-facing card action that opens the detail page", asy
 });
 
 test("keeps public navigation customer-facing and defines a favicon", async () => {
-  const [homepage, detailPage, layout, favicon] = await Promise.all([
+  const [homepage, detailPage, footer, layout, favicon] = await Promise.all([
     text("components/HomePageClient.tsx"),
     text("app/automations/[slug]/page.tsx"),
+    text("components/SiteFooter.tsx"),
     text("app/layout.tsx"),
     text("public/favicon.svg"),
   ]);
 
-  assert.match(homepage, /GTM automations for B2B sales teams\./);
+  assert.match(footer, /GTM automations for B2B sales teams\./);
+  assert.match(footer, /HSR Layout, Bengaluru/);
+  assert.match(footer, /linkedin\.com\/company\/gtmflows/);
+  assert.match(footer, /\/api\/contact/);
   assert.doesNotMatch(homepage, /Fixed-price GTM automations for B2B sales teams\./);
   assert.doesNotMatch(homepage, /href="\/admin">Admin/);
   assert.doesNotMatch(detailPage, /href="\/admin">Admin/);
   assert.match(layout, /favicon\.svg/);
   assert.match(favicon, /<svg/);
   assert.match(favicon, /#d9ff57/);
+});
+
+test("accepts contact inquiries through a Slack-ready endpoint", async () => {
+  const [contactRoute, envExample] = await Promise.all([
+    text("app/api/contact/route.ts"),
+    text(".env.example"),
+  ]);
+
+  assert.match(contactRoute, /SLACK_WEBHOOK_URL/);
+  assert.match(contactRoute, /fetch\(webhookUrl/);
+  assert.match(contactRoute, /New GTM Flows inquiry/);
+  assert.match(contactRoute, /hello@gtmflows\.co/);
+  assert.match(envExample, /SLACK_WEBHOOK_URL=/);
 });
 
 test("publishes the current editor draft and exposes a protected draft preview", async () => {
