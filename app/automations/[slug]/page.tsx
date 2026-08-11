@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 import { SiteFooter } from "@/components/SiteFooter";
+import { SiteNav } from "@/components/SiteNav";
 import { CANONICAL_ORIGIN } from "@/lib/catalogue";
 import { findPublishedAutomationBySlug, getPublishedAutomations } from "@/lib/catalogue-store";
 
@@ -79,7 +80,7 @@ export default async function AutomationPage({ params }: PageProps) {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: CANONICAL_ORIGIN },
-        { "@type": "ListItem", position: 2, name: "Automations", item: `${CANONICAL_ORIGIN}/#catalogue` },
+        { "@type": "ListItem", position: 2, name: "Automations", item: `${CANONICAL_ORIGIN}/catalogue` },
         { "@type": "ListItem", position: 3, name: automation.name, item: url },
       ],
     },
@@ -101,28 +102,17 @@ export default async function AutomationPage({ params }: PageProps) {
   return (
     <main className="automation-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <nav className="nav shell" aria-label="Primary navigation">
-        <a className="brand" href="/" aria-label="GTM Flows home">
-          <img className="brand-logo" src="/gf-logo.png" alt="" />
-          <span>GTM/FLOWS</span>
-        </a>
-        <div className="nav-links">
-          <a href="/#catalogue">Catalogue</a>
-          <a href="/#roi">ROI calculator</a>
-          <a href="#contact">Contact</a>
-        </div>
-        <a className="button button-dark nav-cta" href="#contact">Discuss this flow <span>↗</span></a>
-      </nav>
+      <SiteNav />
 
       <section className={`detail-hero shell accent-${automation.accent}`}>
         <div>
-          <div className="breadcrumbs"><a href="/">Home</a><span>/</span><a href="/#catalogue">Automations</a><span>/</span><span>{automation.name}</span></div>
+          <div className="breadcrumbs"><a href="/">Home</a><span>/</span><a href="/catalogue">Automations</a><span>/</span><span>{automation.name}</span></div>
           <span className="section-number">{automation.category} / AUTOMATION {String(automation.order).padStart(2, "0")}</span>
           <h1>{automation.name}</h1>
           <p>{automation.short}</p>
           <div className="detail-actions">
-            <a className="button button-dark" href="/#roi">Calculate ROI <span>↗</span></a>
-            <a className="button button-light" href="#contact">Book fit check <span>→</span></a>
+            <a className="button button-dark" href="/catalogue#roi">Calculate ROI <span>↗</span></a>
+            <a className="button button-light" href="/contact">Book fit check <span>→</span></a>
           </div>
         </div>
         <aside className="answer-card">
@@ -195,7 +185,7 @@ export default async function AutomationPage({ params }: PageProps) {
               <strong>{item.name}</strong>
               <small>{item.setup} setup · {item.days}</small>
             </a>
-          )) : <a className="related-card accent-lime" href="/#catalogue"><span>Catalogue</span><strong>Browse all GTM flows</strong><small>Compare cost, timing and fit</small></a>}
+          )) : <a className="related-card accent-lime" href="/catalogue"><span>Catalogue</span><strong>Browse all GTM flows</strong><small>Compare cost, timing and fit</small></a>}
         </div>
       </section>
 
@@ -206,7 +196,7 @@ export default async function AutomationPage({ params }: PageProps) {
         </div>
         <div>
           <p>We confirm volume, tools, edge cases and monthly running cost before recommending the build.</p>
-          <a className="button button-light" href="#contact">Request a fit check <span>↗</span></a>
+          <a className="button button-light" href="/contact">Request a fit check <span>↗</span></a>
         </div>
       </section>
 

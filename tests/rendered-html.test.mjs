@@ -54,22 +54,26 @@ test("uses a single customer-facing card action that opens the detail page", asy
 });
 
 test("keeps public navigation customer-facing and defines a favicon", async () => {
-  const [homepage, detailPage, footer, layout, favicon] = await Promise.all([
+  const [homepage, catalogue, detailPage, nav, footer, contactForm, layout, favicon] = await Promise.all([
+    text("components/MarketingHomePage.tsx"),
     text("components/HomePageClient.tsx"),
     text("app/automations/[slug]/page.tsx"),
+    text("components/SiteNav.tsx"),
     text("components/SiteFooter.tsx"),
+    text("components/ContactForm.tsx"),
     text("app/layout.tsx"),
     text("public/favicon.svg"),
   ]);
 
-  assert.match(footer, /GTM automations for B2B sales teams\./);
+  assert.match(footer, /Automated revenue systems/);
   assert.match(footer, /HSR Layout, Bengaluru/);
   assert.match(footer, /linkedin\.com\/company\/gtm-flows/);
   assert.match(footer, /contact@gtmflows\.co/);
-  assert.match(footer, /\/api\/contact/);
-  assert.match(footer, /We’ll review your tools, volume and fit/);
+  assert.match(contactForm, /\/api\/contact/);
+  assert.match(contactForm, /What should improve/);
   assert.doesNotMatch(footer, /Slack workspace/);
-  assert.doesNotMatch(homepage, /Fixed-price GTM automations for B2B sales teams\./);
+  assert.doesNotMatch(catalogue, /Fixed-price GTM automations for B2B sales teams\./);
+  assert.doesNotMatch(nav, /href="\/admin">Admin/);
   assert.doesNotMatch(homepage, /href="\/admin">Admin/);
   assert.doesNotMatch(detailPage, /href="\/admin">Admin/);
   assert.match(layout, /favicon\.svg/);
@@ -78,9 +82,32 @@ test("keeps public navigation customer-facing and defines a favicon", async () =
   assert.match(layout, /favicon-192\.png/);
   assert.match(favicon, /<svg/);
   assert.match(favicon, /data:image\/png;base64/);
-  assert.match(homepage, /src="\/gf-logo\.png"/);
-  assert.match(detailPage, /src="\/gf-logo\.png"/);
+  assert.match(nav, /src="\/gf-logo\.png"/);
+  assert.match(detailPage, /<SiteNav \/>/);
   assert.match(footer, /src="\/gf-logo\.png"/);
+});
+
+test("ships the revenue-systems positioning as concise, connected website pages", async () => {
+  const [homepage, systemsPage, buildPage, faqPage, cataloguePage, sitemap, llms] = await Promise.all([
+    text("components/MarketingHomePage.tsx"),
+    text("app/revenue-systems/page.tsx"),
+    text("app/how-we-build/page.tsx"),
+    text("app/faq/page.tsx"),
+    text("app/catalogue/page.tsx"),
+    text("app/sitemap.xml/route.ts"),
+    text("app/llms.txt/route.ts"),
+  ]);
+
+  assert.match(homepage, /Automated revenue systems/);
+  assert.match(homepage, /One connected revenue system/);
+  assert.match(homepage, /From signal to action/);
+  assert.match(systemsPage, /The strongest targeting criteria are rarely available/);
+  assert.match(buildPage, /Infrastructure and data readiness/);
+  assert.match(faqPage, /FAQPage/);
+  assert.match(cataloguePage, /getPublishedAutomations/);
+  assert.match(sitemap, /\/revenue-systems/);
+  assert.match(sitemap, /\/catalogue/);
+  assert.match(llms, /automated revenue systems/);
 });
 
 test("ships the uploaded logo and favicon assets without public brand-detail downloads", async () => {

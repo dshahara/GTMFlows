@@ -29,6 +29,7 @@ a { color: inherit; text-decoration: none; }
 .brand-logo { width: 34px; height: 34px; display: block; border-radius: 50%; object-fit: cover; }
 .button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 18px; padding: 0 22px; border: 1px solid var(--ink); border-radius: 999px; font-size: 14px; font-weight: 700; transition: transform .2s ease, box-shadow .2s ease; }
 .button:hover { transform: translateY(-2px); box-shadow: 0 7px 0 rgba(21,21,21,.12); }
+.button:focus-visible, .text-link:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
 .button-dark { background: var(--ink); color: white; }
 .button-light { background: var(--white); color: var(--ink); }
 .nav-cta { min-height: 42px; padding-inline: 18px; }
@@ -90,10 +91,12 @@ a { color: inherit; text-decoration: none; }
 .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
 .filters button { min-height: 44px; cursor: pointer; border: 1px solid #c7c7bf; background: transparent; border-radius: 99px; padding: 10px 15px; color: #54544d; font-size: 12px; transition: .2s ease; }
 .filters button:hover, .filters button.active { background: var(--ink); color: white; border-color: var(--ink); }
+.filters button:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
 .card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 .automation-card { --accent: var(--lime); position: relative; overflow: hidden; background: var(--white); border: 1px solid var(--line); border-radius: 20px; padding: 25px; transition: transform .25s ease, box-shadow .25s ease; }
 .automation-card::before { content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: var(--accent); }
 .automation-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(21,21,21,.08); }
+.automation-card:focus-within { box-shadow: 0 18px 40px rgba(21,21,21,.08); }
 .accent-lime { --accent: var(--lime); }.accent-blue { --accent: var(--blue); }.accent-coral { --accent: var(--coral); }.accent-violet { --accent: var(--violet); }.accent-aqua { --accent: var(--aqua); }.accent-orange { --accent: var(--orange); }
 .card-top { display: flex; justify-content: space-between; align-items: center; }
 .card-index { font: 700 12px var(--font-geist-mono); }
@@ -115,6 +118,7 @@ a { color: inherit; text-decoration: none; }
 .fit-note span { display: block; margin-bottom: 5px; color: #999990; font: 8px var(--font-geist-mono); text-transform: uppercase; }
 .card-action { width: 100%; min-height: 46px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--ink); background: transparent; padding: 12px 15px; border-radius: 9px; font-weight: 700; font-size: 12px; transition: .2s ease; }
 .card-action:hover { background: var(--ink); color: white; }
+.card-action:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; background: var(--ink); color: white; }
 .card-link { text-align: left; }
 
 .transparency { display: grid; grid-template-columns: .95fr 1.05fr; gap: 85px; align-items: center; padding-bottom: 120px; }

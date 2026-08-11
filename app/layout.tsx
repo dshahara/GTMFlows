@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { CANONICAL_ORIGIN } from "@/lib/catalogue";
 import "./globals.css";
+import "./marketing.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,8 +16,8 @@ const geistMono = Geist_Mono({
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "GTM Flows — GTM Automation Catalogue",
-    description: "Browse fixed-price GTM automations with transparent setup costs, monthly running costs, implementation time and ROI.",
+    title: "GTM Flows | Automated Revenue Systems for B2B Teams",
+    description: "GTM Flows builds automated revenue systems using data enrichment, buying signals, AI research and workflow automation for B2B revenue teams.",
     metadataBase: new URL(CANONICAL_ORIGIN),
     alternates: { canonical: CANONICAL_ORIGIN },
     icons: {
@@ -30,16 +31,16 @@ export async function generateMetadata(): Promise<Metadata> {
       apple: "/favicon.png",
     },
     openGraph: {
-      title: "Know what to automate. Know what it costs.",
-      description: "10 ready-to-deploy GTM automations with transparent costs, implementation time and ROI.",
+      title: "Build a revenue system that knows who to target and why now.",
+      description: "Connect revenue data, buying signals and GTM tools to identify opportunities, prioritise action and automate execution.",
       type: "website",
       url: CANONICAL_ORIGIN,
       images: [{ url: `${CANONICAL_ORIGIN}/og.png`, width: 1200, height: 630, alt: "GTM Flows automation catalogue" }],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Know what to automate. Know what it costs.",
-      description: "10 ready-to-deploy GTM automations with transparent costs, implementation time and ROI.",
+      title: "Build a revenue system that knows who to target and why now.",
+      description: "Connect revenue data, buying signals and GTM tools to identify opportunities, prioritise action and automate execution.",
       images: [`${CANONICAL_ORIGIN}/og.png`],
     },
   };

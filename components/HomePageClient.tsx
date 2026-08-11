@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import type { PublicAutomation } from "@/lib/catalogue";
 import { categories, formatFullRupees } from "@/lib/catalogue";
 import { SiteFooter } from "@/components/SiteFooter";
+import { SiteNav } from "@/components/SiteNav";
 
 type HomePageClientProps = {
   automations: PublicAutomation[];
@@ -41,71 +42,24 @@ export function HomePageClient({ automations }: HomePageClientProps) {
   }, [volume, minutes, hourlyCost, coverage, runCost, setupCost]);
 
   return (
-    <main>
-      <nav className="nav shell" aria-label="Primary navigation">
-        <a className="brand" href="#top" aria-label="GTM Flows home">
-          <img className="brand-logo" src="/gf-logo.png" alt="" />
-          <span>GTM/FLOWS</span>
-        </a>
-        <div className="nav-links">
-          <a href="#catalogue">Catalogue</a>
-          <a href="#roi">ROI calculator</a>
-          <a href="#process">How it works</a>
-          <a href="#contact">Contact</a>
+    <main className="catalogue-page">
+      <SiteNav />
+      <section className="marketing-page-hero shell" id="top">
+        <div>
+          <div className="breadcrumbs"><a href="/">Home</a><span>/</span><span>Automation Catalogue</span></div>
+          <span className="section-number">Ready-to-deploy automations</span>
+          <h1>Know what to automate. Know what it costs.</h1>
         </div>
-        <a className="button button-dark nav-cta" href="#contact">Request fit check <span>↗</span></a>
-      </nav>
-
-      <section className="hero shell" id="top">
-        <div className="hero-copy">
-          <div className="eyebrow"><span className="live-dot" /> Ready-to-deploy GTM automations</div>
-          <h1>Know what to automate. <span>Know what it costs.</span></h1>
-          <p className="hero-sub">Browse a transparent catalogue of sales automations with setup price, monthly running cost, delivery time and ROI before you book a call.</p>
-          <div className="hero-actions">
-            <a className="button button-dark" href="#catalogue">Browse {automations.length} automations <span>↓</span></a>
-            <a className="text-link" href="#roi">Calculate your ROI <span>↗</span></a>
-          </div>
-          <div className="hero-proof">
-            <div><strong>5-10</strong><span>days to launch most builds</span></div>
-            <div><strong>₹1K+</strong><span>estimated monthly run cost</span></div>
-            <div><strong>100%</strong><span>client-owned accounts</span></div>
-          </div>
+        <div>
+          <p>Compare {automations.length} focused GTM automations by setup price, monthly running cost, implementation time, complexity and best-fit use case.</p>
+          <a className="button button-dark" href="#catalogue">Browse the catalogue ↓</a>
         </div>
-
-        <div className="flow-panel" aria-label="Lead automation workflow illustration">
-          <div className="flow-topline">
-            <span>LIVE WORKFLOW</span>
-            <span className="status-pill">● Healthy</span>
-          </div>
-          <div className="flow-lead">
-            <div className="avatar">AK</div>
-            <div><strong>New demo request</strong><span>Acme Labs · 120 employees</span></div>
-            <span className="time-tag">NOW</span>
-          </div>
-          <div className="flow-path">
-            <div className="flow-node node-lime"><span>01</span><strong>Enrich</strong><small>11 fields added</small></div>
-            <div className="connector"><i /></div>
-            <div className="flow-node node-blue"><span>02</span><strong>Score</strong><small>ICP match: 92%</small></div>
-            <div className="connector"><i /></div>
-            <div className="flow-node node-coral"><span>03</span><strong>Route</strong><small>Assigned to Nisha</small></div>
-          </div>
-          <div className="flow-result">
-            <div><span className="check">✓</span><strong>Ready for sales</strong></div>
-            <div className="time-saved"><small>PROCESSING TIME</small><strong>00:43</strong></div>
-          </div>
-          <div className="orbit orbit-one" />
-          <div className="orbit orbit-two" />
-        </div>
-      </section>
-
-      <section className="ticker" aria-label="Supported tools">
-        <div>HUBSPOT <span>✦</span> ZOHO <span>✦</span> SALESFORCE <span>✦</span> CLAY <span>✦</span> APOLLO <span>✦</span> N8N <span>✦</span> MAKE <span>✦</span> ZAPIER</div>
       </section>
 
       <section className="intro shell" id="catalogue">
         <div>
-          <span className="section-number">01 / CATALOGUE</span>
-          <h2>Start with one process that already costs you time.</h2>
+          <span className="section-number">01 / Automation catalogue</span>
+          <h2>Start with one process that already costs your team time.</h2>
         </div>
         <p>No lengthy transformation project. Compare the economics, choose a workflow, and launch only when the numbers make sense.</p>
       </section>
@@ -221,16 +175,16 @@ export function HomePageClient({ automations }: HomePageClientProps) {
 
       <section className="cta shell">
         <div>
-          <span className="section-number">START SMALL</span>
-          <h2>What should your sales team stop doing manually?</h2>
+          <span className="section-number">Start with the bottleneck</span>
+          <h2>Which revenue process should stop depending on manual work?</h2>
         </div>
         <div>
           <p>Pick one repetitive process. We will confirm the fit, total operating cost and acceptance criteria before you commit.</p>
-          <a className="button button-light" href="#contact">Find my first automation <span>↗</span></a>
+          <a className="button button-light" href="/contact">Find my first automation <span>↗</span></a>
         </div>
       </section>
 
-      <SiteFooter source="Homepage contact form" />
+      <SiteFooter source="Automation catalogue" />
 
     </main>
   );

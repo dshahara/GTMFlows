@@ -1,142 +1,47 @@
-"use client";
-
-import { FormEvent, useState } from "react";
-
-type FormState = "idle" | "sending" | "sent" | "error";
-
 type SiteFooterProps = {
   source?: string;
 };
 
-export function SiteFooter({ source = "Website footer" }: SiteFooterProps) {
-  const [status, setStatus] = useState<FormState>("idle");
-  const [message, setMessage] = useState("");
-
-  async function submitInquiry(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    setStatus("sending");
-    setMessage("");
-
-    const payload = {
-      name: String(formData.get("name") ?? "").trim(),
-      email: String(formData.get("email") ?? "").trim(),
-      company: String(formData.get("company") ?? "").trim(),
-      automation: String(formData.get("automation") ?? "").trim(),
-      message: String(formData.get("message") ?? "").trim(),
-      website: String(formData.get("website") ?? "").trim(),
-      source,
-    };
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const result = (await response.json().catch(() => ({}))) as { error?: string };
-
-      if (!response.ok) {
-        throw new Error(result.error || "Unable to send inquiry right now.");
-      }
-
-      form.reset();
-      setStatus("sent");
-      setMessage("Thanks — your inquiry has been sent. We’ll review the fit and get back to you.");
-    } catch (error) {
-      setStatus("error");
-      setMessage(error instanceof Error ? error.message : "Unable to send inquiry right now.");
-    }
-  }
-
+export function SiteFooter({ source: _source = "Website footer" }: SiteFooterProps) {
   return (
-    <footer className="site-footer" id="contact">
-      <div className="shell footer-shell">
-        <section className="footer-main" aria-label="GTM Flows contact information">
+    <footer className="marketing-footer" id="contact">
+      <div className="shell">
+        <div className="marketing-footer-top">
           <div>
-            <a className="brand footer-brand" href="/" aria-label="GTM Flows home">
+            <a className="brand" href="/" aria-label="GTM Flows home">
               <img className="brand-logo" src="/gf-logo.png" alt="" />
               <span>GTM/FLOWS</span>
             </a>
-            <p className="footer-tagline">GTM automations for B2B sales teams.</p>
-            <h2>Have one GTM workflow worth automating?</h2>
-            <p>
-              Send the process, tools and rough monthly volume. We’ll help you check whether it is worth
-              automating before you spend on the build.
-            </p>
+            <p className="marketing-footer-tagline">Automated revenue systems</p>
+            <p className="marketing-footer-location">HSR Layout, Bengaluru, Karnataka, India</p>
+            <a className="marketing-footer-email" href="mailto:contact@gtmflows.co">contact@gtmflows.co</a>
           </div>
 
-          <div className="footer-info-grid">
+          <nav className="marketing-footer-nav" aria-label="Footer navigation">
             <div>
-              <span>Location</span>
-              <p>HSR Layout, Bengaluru, Karnataka, India</p>
+              <span>Systems</span>
+              <a href="/revenue-systems">Revenue Systems</a>
+              <a href="/how-we-build">How We Build</a>
+              <a href="/catalogue">Automation Catalogue</a>
             </div>
             <div>
-              <span>Social</span>
-              <a href="https://www.linkedin.com/company/gtm-flows/" target="_blank" rel="noreferrer">
-                LinkedIn ↗
-              </a>
+              <span>Explore</span>
+              <a href="/catalogue#roi">ROI Calculator</a>
+              <a href="/faq">FAQ</a>
+              <a href="/contact">Fit Check</a>
             </div>
             <div>
-              <span>Email</span>
-              <a href="mailto:contact@gtmflows.co">contact@gtmflows.co</a>
+              <span>Company</span>
+              <a href="https://www.linkedin.com/company/gtm-flows/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+              <a href="/contact">Contact</a>
+              <a href="/llms.txt">llms.txt</a>
             </div>
-            <div>
-              <span>Response</span>
-              <p>We usually review new fit-check requests within one business day.</p>
-            </div>
-            <div>
-              <span>Best for</span>
-              <p>B2B sales, RevOps and founder-led GTM teams</p>
-            </div>
-          </div>
-        </section>
+          </nav>
+        </div>
 
-        <section className="contact-card" aria-label="Contact GTM Flows">
-          <span className="section-number">CONTACT</span>
-          <h2>Request a fit check</h2>
-          <form className="contact-form" onSubmit={submitInquiry}>
-            <label>
-              Name
-              <input name="name" type="text" autoComplete="name" required placeholder="Your name" />
-            </label>
-            <label>
-              Work email
-              <input name="email" type="email" autoComplete="email" required placeholder="you@company.com" />
-            </label>
-            <label>
-              Company
-              <input name="company" type="text" autoComplete="organization" placeholder="Company name" />
-            </label>
-            <label>
-              Automation interest
-              <input name="automation" type="text" placeholder="Lead enrichment, CRM routing, attribution..." />
-            </label>
-            <label className="full">
-              What do you want to automate?
-              <textarea name="message" rows={5} required placeholder="Tell us the current manual process, tools used and approximate monthly volume." />
-            </label>
-            <label className="honeypot" aria-hidden="true">
-              Website
-              <input name="website" type="text" tabIndex={-1} autoComplete="off" />
-            </label>
-            <button className="button button-dark full" type="submit" disabled={status === "sending"}>
-              {status === "sending" ? "Sending..." : "Send inquiry to GTM Flows"} <span>↗</span>
-            </button>
-          </form>
-          {message && <p className={`form-message ${status === "error" ? "error" : "success"}`}>{message}</p>}
-          <p className="contact-note">We’ll review your tools, volume and fit before recommending a build.</p>
-        </section>
-
-        <div className="footer-bottom">
+        <div className="marketing-footer-bottom">
           <p>© {new Date().getFullYear()} GTM Flows. All rights reserved.</p>
-          <div>
-            <a href="/#catalogue">Catalogue</a>
-            <a href="/#roi">ROI calculator</a>
-            <a href="/llms.txt">llms.txt</a>
-            <a href="#top">Back to top ↑</a>
-          </div>
+          <p>Client-owned software, data and sending accounts.</p>
         </div>
       </div>
     </footer>

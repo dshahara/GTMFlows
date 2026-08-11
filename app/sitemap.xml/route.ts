@@ -8,6 +8,11 @@ export async function GET() {
   const now = new Date().toISOString();
   const urls = [
     { loc: CANONICAL_ORIGIN, lastmod: now, priority: "1.0" },
+    { loc: `${CANONICAL_ORIGIN}/revenue-systems`, lastmod: now, priority: "0.9" },
+    { loc: `${CANONICAL_ORIGIN}/catalogue`, lastmod: now, priority: "0.9" },
+    { loc: `${CANONICAL_ORIGIN}/how-we-build`, lastmod: now, priority: "0.8" },
+    { loc: `${CANONICAL_ORIGIN}/faq`, lastmod: now, priority: "0.7" },
+    { loc: `${CANONICAL_ORIGIN}/contact`, lastmod: now, priority: "0.7" },
     ...automations.map((automation) => ({
       loc: `${CANONICAL_ORIGIN}/automations/${automation.slug}`,
       lastmod: now,

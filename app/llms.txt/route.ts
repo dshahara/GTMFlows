@@ -8,7 +8,17 @@ export async function GET() {
   const lines = [
     "# GTM Flows",
     "",
-    "GTM Flows provides fixed-scope GTM automation builds for B2B sales and revenue teams in India.",
+    "GTM Flows builds automated revenue systems using AI, data enrichment and workflow automation for RevOps, growth and customer success teams in India.",
+    "",
+    "We connect fragmented customer data, identify meaningful signals and activate the next best action across the revenue lifecycle.",
+    "",
+    "## Core pages",
+    "",
+    `- Revenue systems: ${CANONICAL_ORIGIN}/revenue-systems`,
+    `- How we build: ${CANONICAL_ORIGIN}/how-we-build`,
+    `- Automation catalogue and ROI calculator: ${CANONICAL_ORIGIN}/catalogue`,
+    `- Frequently asked questions: ${CANONICAL_ORIGIN}/faq`,
+    `- Contact and fit check: ${CANONICAL_ORIGIN}/contact`,
     "",
     "## Automation catalogue",
     "",
@@ -20,7 +30,7 @@ export async function GET() {
     ]),
     "## Contact",
     "",
-    "Use the website contact form for fit checks and catalogue automation enquiries.",
+    `Use the fit-check form at ${CANONICAL_ORIGIN}/contact for revenue-system and automation enquiries.`,
   ];
 
   return new Response(lines.join("\n"), { headers: { "content-type": "text/plain; charset=utf-8" } });

@@ -1,19 +1,14 @@
-import { HomePageClient } from "@/components/HomePageClient";
+import { MarketingHomePage } from "@/components/MarketingHomePage";
 import { CANONICAL_ORIGIN } from "@/lib/catalogue";
-import { getPublishedAutomations } from "@/lib/catalogue-store";
 
-export const dynamic = "force-dynamic";
-
-export default async function Home() {
-  const automations = await getPublishedAutomations();
-
+export default function Home() {
   const jsonLd = [
     {
       "@context": "https://schema.org",
       "@type": "Organization",
       name: "GTM Flows",
       url: CANONICAL_ORIGIN,
-      description: "GTM Flows builds fixed-scope GTM automations for B2B sales and revenue teams.",
+      description: "GTM Flows builds automated revenue systems using data enrichment, buying signals, AI research and workflow automation.",
     },
     {
       "@context": "https://schema.org",
@@ -31,7 +26,7 @@ export default async function Home() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <HomePageClient automations={automations} />
+      <MarketingHomePage />
     </>
   );
 }
