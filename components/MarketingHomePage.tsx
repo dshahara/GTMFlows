@@ -15,7 +15,7 @@ export function MarketingHomePage() {
           <p>GTM Flows connects your revenue data, buying signals and GTM tools to identify opportunities, prioritise action and automate execution.</p>
           <div className="marketing-hero-actions">
             <a className="button button-dark" href="/contact">Design my revenue system</a>
-            <a className="text-link" href="/catalogue">Explore the automation catalogue →</a>
+            <a className="text-link" href="/how-we-build">Explore how we build →</a>
           </div>
         </div>
         <DecisionFlowVisual />
