@@ -41,7 +41,7 @@ export default async function AdminPreviewPage({ params }: PageProps) {
       <section className={`detail-hero shell accent-${automation.accent}`}>
         <div>
           <div className="breadcrumbs"><a href="/admin">Admin</a><span>/</span><span>Draft preview</span></div>
-          <span className="section-number">{automation.category} / DRAFT AUTOMATION {String(automation.order).padStart(2, "0")}</span>
+          <span className="section-number">{automation.category} draft preview</span>
           <h1>{automation.name}</h1>
           <p>{automation.short}</p>
           <div className="detail-actions">

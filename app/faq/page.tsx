@@ -46,12 +46,12 @@ export default function FaqPage() {
 
       <section className="marketing-page-section dark-band compact-section">
         <div className="shell">
-          <div className="marketing-head-grid"><span className="section-number light">01 / Commercial principles</span><h2>Buy the first measurable system—not an open-ended block of engineering hours.</h2></div>
+          <div className="marketing-head-grid"><span className="section-number light">Commercial principles</span><h2>Buy the first measurable system—not an open-ended block of engineering hours.</h2></div>
           <ul className="two-column-list dark-list">{commercialPrinciples.map((principle) => <li key={principle}>{principle}</li>)}</ul>
         </div>
       </section>
 
-      <MarketingFinalCta number="02" />
+      <MarketingFinalCta />
       <SiteFooter />
     </main>
   );

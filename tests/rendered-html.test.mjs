@@ -74,6 +74,8 @@ test("keeps public navigation customer-facing and defines a favicon", async () =
   assert.doesNotMatch(footer, /Slack workspace/);
   assert.doesNotMatch(catalogue, /Fixed-price GTM automations for B2B sales teams\./);
   assert.doesNotMatch(nav, /href="\/admin">Admin/);
+  assert.doesNotMatch(nav, /href="\/revenue-systems"/);
+  assert.doesNotMatch(footer, /llms\.txt/);
   assert.doesNotMatch(homepage, /href="\/admin">Admin/);
   assert.doesNotMatch(detailPage, /href="\/admin">Admin/);
   assert.match(layout, /favicon\.svg/);
@@ -88,26 +90,37 @@ test("keeps public navigation customer-facing and defines a favicon", async () =
 });
 
 test("ships the revenue-systems positioning as concise, connected website pages", async () => {
-  const [homepage, systemsPage, buildPage, faqPage, cataloguePage, sitemap, llms] = await Promise.all([
+  const [homepage, marketingData, systemsPage, privateSystemsPage, buildPage, privateBuildPage, faqPage, cataloguePage, sitemap, llms, robots] = await Promise.all([
     text("components/MarketingHomePage.tsx"),
+    text("lib/marketing.ts"),
     text("app/revenue-systems/page.tsx"),
+    text("app/private/revenue-systems/page.tsx"),
     text("app/how-we-build/page.tsx"),
+    text("app/private/how-we-build/page.tsx"),
     text("app/faq/page.tsx"),
     text("app/catalogue/page.tsx"),
     text("app/sitemap.xml/route.ts"),
     text("app/llms.txt/route.ts"),
+    text("app/robots.txt/route.ts"),
   ]);
 
   assert.match(homepage, /Automated revenue systems/);
-  assert.match(homepage, /One connected revenue system/);
+  assert.match(homepage, /Revenue systems/);
+  assert.match(marketingData, /Signal-to-Sequence Engine/);
+  assert.match(marketingData, /Renewal and Expansion Intelligence/);
+  assert.match(homepage, /Connected revenue system/);
   assert.match(homepage, /From signal to action/);
-  assert.match(systemsPage, /The strongest targeting criteria are rarely available/);
-  assert.match(buildPage, /Infrastructure and data readiness/);
+  assert.match(systemsPage, /redirect\("\/private\/revenue-systems"\)/);
+  assert.match(privateSystemsPage, /RevenueSystemsPageContent/);
+  assert.doesNotMatch(buildPage, /Audit the CRM/);
+  assert.match(privateBuildPage, /Infrastructure and data readiness/);
   assert.match(faqPage, /FAQPage/);
   assert.match(cataloguePage, /getPublishedAutomations/);
-  assert.match(sitemap, /\/revenue-systems/);
+  assert.doesNotMatch(sitemap, /\/revenue-systems/);
+  assert.match(robots, /Disallow: \/private/);
   assert.match(sitemap, /\/catalogue/);
   assert.match(llms, /automated revenue systems/);
+  assert.doesNotMatch(llms, /Revenue systems:/);
 });
 
 test("ships the uploaded logo and favicon assets without public brand-detail downloads", async () => {
@@ -188,6 +201,7 @@ test("adds SEO, AEO and crawl-control routes", async () => {
   assert.match(detailPage, /permanentRedirect/);
   assert.match(sitemap, /getPublishedAutomations/);
   assert.match(robots, /Disallow: \/admin/);
+  assert.match(robots, /Disallow: \/private/);
   assert.match(robots, /Disallow: \/api\//);
   assert.match(llms, /getPublishedAutomations/);
   assert.match(layout, /CANONICAL_ORIGIN/);

@@ -14,7 +14,6 @@ export async function GET() {
     "",
     "## Core pages",
     "",
-    `- Revenue systems: ${CANONICAL_ORIGIN}/revenue-systems`,
     `- How we build: ${CANONICAL_ORIGIN}/how-we-build`,
     `- Automation catalogue and ROI calculator: ${CANONICAL_ORIGIN}/catalogue`,
     `- Frequently asked questions: ${CANONICAL_ORIGIN}/faq`,

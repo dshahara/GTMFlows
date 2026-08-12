@@ -94,6 +94,7 @@
 .system-loop { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px 22px; margin-top: 56px; }
 .system-node { min-height: 126px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; text-align: left; border: 1px solid #3a3a34; border-top: 5px solid var(--accent); border-radius: 16px; background: #20201d; color: #fff; padding: 18px; transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease; }
 .system-node:hover, .system-node:focus-visible, .system-node.selected { background: var(--accent); border-color: var(--accent); color: var(--ink); transform: translateY(-3px); }
+.system-node.accent-border-blue:hover, .system-node.accent-border-blue:focus-visible, .system-node.accent-border-blue.selected { color: #fff; }
 .system-node:focus-visible { outline: 3px solid var(--lime); outline-offset: 4px; box-shadow: 0 0 0 1px var(--ink); }
 .system-node > span { font: 700 10px var(--font-geist-mono); letter-spacing: .12em; opacity: .65; }
 .system-node strong { font-size: 20px; letter-spacing: -.04em; }
@@ -211,6 +212,10 @@
 .phase-list li::before { content: ""; position: absolute; left: 0; top: 7px; width: 8px; height: 8px; border-radius: 2px; background: var(--accent); }
 .phase-deliverable { border-top: 1px solid var(--line); padding-top: 18px; }
 .phase-deliverable p { margin-top: 8px; color: var(--ink); font-weight: 500; }
+.phase-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 52px; }
+.phase-summary-grid article { min-height: 190px; display: flex; flex-direction: column; justify-content: space-between; gap: 28px; border: 1px solid var(--line); border-top: 5px solid var(--accent); border-radius: 18px; background: var(--white); padding: 24px; }
+.phase-summary-grid span { color: var(--muted); font: 700 10px var(--font-geist-mono); letter-spacing: .1em; text-transform: uppercase; }
+.phase-summary-grid h3 { margin: 0; font-size: 20px; line-height: 1.25; letter-spacing: -.035em; }
 
 .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .faq-grid details { border: 1px solid var(--line); border-radius: 18px; background: var(--white); padding: 22px 24px; }
@@ -325,6 +330,8 @@
   .stack-grid { grid-template-columns: 1fr; }
   .architecture-stack article { grid-template-columns: 1fr; gap: 10px; }
   .phase-list > article { padding: 22px; }
+  .phase-summary-grid { grid-template-columns: 1fr; margin-top: 36px; }
+  .phase-summary-grid article { min-height: 150px; }
   .faq-grid details { padding: 20px; }
   .fit-check-card { padding: 24px; box-shadow: 8px 8px 0 var(--blue); }
   .fit-check-form { grid-template-columns: 1fr; }

@@ -5,6 +5,7 @@ export function GET() {
     `User-agent: *
 Allow: /
 Disallow: /admin
+Disallow: /private
 Disallow: /api/
 
 Sitemap: ${CANONICAL_ORIGIN}/sitemap.xml

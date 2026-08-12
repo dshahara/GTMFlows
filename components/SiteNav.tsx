@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 
 const links = [
-  ["Revenue Systems", "/revenue-systems"],
   ["How We Build", "/how-we-build"],
   ["Automation Catalogue", "/catalogue"],
   ["ROI Calculator", "/catalogue#roi"],

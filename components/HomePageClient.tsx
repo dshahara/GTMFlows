@@ -58,7 +58,7 @@ export function HomePageClient({ automations }: HomePageClientProps) {
 
       <section className="intro shell" id="catalogue">
         <div>
-          <span className="section-number">01 / Automation catalogue</span>
+          <span className="section-number">Automation catalogue</span>
           <h2>Start with one process that already costs your team time.</h2>
         </div>
         <p>No lengthy transformation project. Compare the economics, choose a workflow, and launch only when the numbers make sense.</p>
@@ -102,7 +102,7 @@ export function HomePageClient({ automations }: HomePageClientProps) {
 
       <section className="transparency shell">
         <div className="transparency-copy">
-          <span className="section-number">02 / COST TRANSPARENCY</span>
+          <span className="section-number">Cost transparency</span>
           <h2>See the whole cost. Not just the build fee.</h2>
           <p>Every catalogue estimate separates implementation from the ongoing software, data, AI and execution costs required to keep the automation running.</p>
           <div className="cost-legend">
@@ -128,7 +128,7 @@ export function HomePageClient({ automations }: HomePageClientProps) {
       <section className="roi-section" id="roi">
         <div className="shell">
           <div className="roi-heading">
-            <span className="section-number light">03 / ROI CALCULATOR</span>
+            <span className="section-number light">ROI calculator</span>
             <h2>Will the automation pay for itself?</h2>
             <p>Use your numbers. Revenue uplift is deliberately excluded from the base calculation.</p>
           </div>
@@ -162,7 +162,7 @@ export function HomePageClient({ automations }: HomePageClientProps) {
 
       <section className="process shell" id="process">
         <div className="process-heading">
-          <span className="section-number">04 / HOW IT WORKS</span>
+          <span className="section-number">How it works</span>
           <h2>One workflow. Four clear steps.</h2>
         </div>
         <div className="process-grid">

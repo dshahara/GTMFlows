@@ -107,7 +107,7 @@ export default async function AutomationPage({ params }: PageProps) {
       <section className={`detail-hero shell accent-${automation.accent}`}>
         <div>
           <div className="breadcrumbs"><a href="/">Home</a><span>/</span><a href="/catalogue">Automations</a><span>/</span><span>{automation.name}</span></div>
-          <span className="section-number">{automation.category} / AUTOMATION {String(automation.order).padStart(2, "0")}</span>
+          <span className="section-number">{automation.category}</span>
           <h1>{automation.name}</h1>
           <p>{automation.short}</p>
           <div className="detail-actions">

@@ -21,11 +21,11 @@ export function MarketingPageHero({
   );
 }
 
-export function MarketingFinalCta({ number = "06" }: { number?: string }) {
+export function MarketingFinalCta() {
   return (
     <section className="marketing-final-cta shell">
       <div>
-        <span className="section-number">{number} / Start with the bottleneck</span>
+        <span className="section-number">Start with the bottleneck</span>
         <h2>Where does valuable revenue data currently stop becoming action?</h2>
       </div>
       <div>

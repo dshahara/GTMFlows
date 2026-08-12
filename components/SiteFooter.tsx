@@ -20,7 +20,6 @@ export function SiteFooter({ source: _source = "Website footer" }: SiteFooterPro
           <nav className="marketing-footer-nav" aria-label="Footer navigation">
             <div>
               <span>Systems</span>
-              <a href="/revenue-systems">Revenue Systems</a>
               <a href="/how-we-build">How We Build</a>
               <a href="/catalogue">Automation Catalogue</a>
             </div>
@@ -34,7 +33,6 @@ export function SiteFooter({ source: _source = "Website footer" }: SiteFooterPro
               <span>Company</span>
               <a href="https://www.linkedin.com/company/gtm-flows/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
               <a href="/contact">Contact</a>
-              <a href="/llms.txt">llms.txt</a>
             </div>
           </nav>
         </div>

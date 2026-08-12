@@ -28,54 +28,11 @@ const architecture = [
 ] as const;
 
 const phases = [
-  {
-    number: "00",
-    name: "Infrastructure and data readiness",
-    objective: "Create a stable operating environment before increasing volume or adding automation.",
-    work: ["Audit the CRM, spreadsheets, enrichment and activation tools", "Document integrations, ownership and current failure points", "Establish naming, deduplication and data-retention rules", "Configure domains, authentication and sending controls when outbound is included", "Create the initial dashboard and system documentation"],
-    deliverable: "A working, documented GTM stack with client-owned accounts and a system-ready checklist.",
-    accent: "aqua",
-  },
-  {
-    number: "01",
-    name: "Market definition and TAM design",
-    objective: "Define who the company should pursue and convert that strategy into usable account data.",
-    work: ["Analyse strong customers, weak-fit customers and lost opportunities", "Define firmographic, geographic, technographic and commercial attributes", "Create ICP tiers with must-have, preferred and exclusion criteria", "Source and segment the total addressable market", "Define the data fields required for scoring and activation"],
-    deliverable: "A written ICP, segmented TAM and data dictionary for the targeting model.",
-    accent: "lime",
-  },
-  {
-    number: "02",
-    name: "Scoring, signals and target selection",
-    objective: "Determine which accounts deserve attention now.",
-    work: ["Build a transparent company-fit score", "Define signals connected to purchase, expansion, reactivation or churn", "Set source, refresh-frequency and cost controls", "Combine fit and timing without hiding the logic", "Set thresholds based on the team’s weekly capacity"],
-    deliverable: "Fit and timing scorecards, a signal map and a current account queue.",
-    accent: "blue",
-  },
-  {
-    number: "03",
-    name: "Buying committee and enrichment",
-    objective: "Identify the right people and provide enough evidence for relevant engagement.",
-    work: ["Define buyer, champion, influencer and blocker roles", "Find one to three relevant contacts per account", "Verify contact data through appropriate provider checks", "Collect useful company and contact context", "Combine company priority with contact relevance"],
-    deliverable: "A verified buying committee, research evidence and person-level activation queue.",
-    accent: "violet",
-  },
-  {
-    number: "04",
-    name: "Plays, orchestration and activation",
-    objective: "Turn qualified data into a coordinated action across the appropriate channel.",
-    work: ["Develop message angles based on segment, problem and signal", "Define automatic and human-approved steps", "Configure tests, cadence, suppression and deliverability controls", "Coordinate CRM tasks, email, LinkedIn, alerts and audiences", "Record activity and status changes back in the CRM"],
-    deliverable: "Approved plays, live workflows, routing rules and a launch QA report.",
-    accent: "coral",
-  },
-  {
-    number: "05",
-    name: "Measurement and continuous improvement",
-    objective: "Learn which combinations of account, signal, message and channel create commercial movement.",
-    work: ["Monitor data coverage, accuracy, cost and workflow failures", "Compare results by segment, signal, angle and channel", "Pause weak variants and expand evidence-supported winners", "Refresh audiences and repair broken handoffs", "Document what changed and what will be tested next"],
-    deliverable: "A live dashboard, biweekly review and evidence-based experiment backlog.",
-    accent: "orange",
-  },
+  ["Data readiness", "Stabilise the operating environment and confirm the workflow can safely support automation.", "aqua"],
+  ["Market and account focus", "Translate the commercial strategy into clear account, segment and data requirements.", "lime"],
+  ["Signals and prioritisation", "Define which accounts or customers deserve attention and why now.", "blue"],
+  ["Activation workflow", "Connect the decision to the right owner, channel, timing and review point.", "violet"],
+  ["Measurement loop", "Track system health, team execution and the commercial movement the workflow can influence.", "orange"],
 ] as const;
 
 const standards = [
@@ -101,7 +58,7 @@ export default function HowWeBuildPage() {
       />
 
       <section className="marketing-page-section shell compact-top">
-        <div className="marketing-head-grid"><span className="section-number">01 / The design questions</span><h2>Five questions before we automate anything.</h2></div>
+        <div className="marketing-head-grid"><span className="section-number">The design questions</span><h2>Five questions before we automate anything.</h2></div>
         <div className="question-grid">
           {designQuestions.map(([number, title, body, accent]) => <article className={`accent-border-${accent}`} key={number}><span>{number}</span><h3>{title}</h3><p>{body}</p></article>)}
         </div>
@@ -109,7 +66,7 @@ export default function HowWeBuildPage() {
 
       <section className="marketing-page-section dark-band">
         <div className="shell">
-          <div className="marketing-head-grid"><span className="section-number light">02 / System architecture</span><h2>Six layers, one direction of travel.</h2><p>The exact tools vary, but every system must connect evidence to a decision, an owner, an action and a measurable outcome.</p></div>
+          <div className="marketing-head-grid"><span className="section-number light">System architecture</span><h2>Six layers, one direction of travel.</h2><p>The exact tools vary, but every system must connect evidence to a decision, an owner, an action and a measurable outcome.</p></div>
           <div className="architecture-stack">
             {architecture.map(([title, body, accent], index) => <div key={title}><article className={`accent-border-${accent}`}><strong>{title}</strong><p>{body}</p></article>{index < architecture.length - 1 && <i>↓</i>}</div>)}
           </div>
@@ -117,23 +74,23 @@ export default function HowWeBuildPage() {
       </section>
 
       <section className="marketing-page-section shell">
-        <div className="marketing-head-grid"><span className="section-number">03 / How the system is built</span><h2>The work behind a production-ready revenue engine.</h2><p>Every engagement is scoped around a specific commercial bottleneck and built through connected phases.</p></div>
-        <div className="phase-list">
-          {phases.map((phase) => <article className={`accent-border-${phase.accent}`} key={phase.number}>
-            <div><span>{phase.number}</span><h3>{phase.name}</h3><p><strong>Objective.</strong> {phase.objective}</p></div>
-            <div><span>What we do</span><ul>{phase.work.map((item) => <li key={item}>{item}</li>)}</ul><div className="phase-deliverable"><span>Deliverable</span><p>{phase.deliverable}</p></div></div>
+        <div className="marketing-head-grid"><span className="section-number">How the system is built</span><h2>A focused build path without the playbook exposed.</h2><p>Publicly, we keep this high-level: define the decision, prepare the data, connect the workflow, launch safely and measure what changed. The detailed build checklist is shared only inside active engagements.</p></div>
+        <div className="phase-summary-grid">
+          {phases.map(([name, objective, accent]) => <article className={`accent-border-${accent}`} key={name}>
+            <span>{name}</span>
+            <h3>{objective}</h3>
           </article>)}
         </div>
       </section>
 
       <section className="marketing-page-section dark-band compact-section">
         <div className="shell">
-          <div className="marketing-head-grid"><span className="section-number light">04 / Build standards</span><h2>What every production build carries by default.</h2></div>
+          <div className="marketing-head-grid"><span className="section-number light">Build standards</span><h2>What every production build carries by default.</h2></div>
           <ul className="two-column-list dark-list">{standards.map((standard) => <li key={standard}>{standard}</li>)}</ul>
         </div>
       </section>
 
-      <MarketingFinalCta number="05" />
+      <MarketingFinalCta />
       <SiteFooter />
     </main>
   );
