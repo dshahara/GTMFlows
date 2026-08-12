@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "GTM Flows | Automated Revenue Systems for B2B Teams",
+    title: "Automated Revenue Systems for B2B Teams | GTM Flows",
     description: "GTM Flows builds automated revenue systems using data enrichment, buying signals, AI research and workflow automation for B2B revenue teams.",
     metadataBase: new URL(CANONICAL_ORIGIN),
     alternates: { canonical: CANONICAL_ORIGIN },
