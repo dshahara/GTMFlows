@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { MarketingFinalCta, MarketingPageHero } from "@/components/MarketingPageParts";
-import { KeyTakeaways, SourceNote } from "@/components/SeoBlocks";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteNav } from "@/components/SiteNav";
 import { CANONICAL_ORIGIN } from "@/lib/catalogue";
@@ -93,16 +92,6 @@ export default function HowWeBuildPage() {
         title="How to build revenue automation systems"
         body="Revenue automation should start with a business decision, not a tool selection. GTM Flows connects commercial strategy, data architecture and workflow execution so each build has a clear owner, measurable outcome and safe operating model."
       />
-
-      <section className="shell compact-top">
-        <KeyTakeaways
-          answer="Revenue automation should start with a business decision, not with a tool selection."
-          bestFor="Teams that need reliable CRM data, signal scoring and repeatable GTM execution."
-          stat="GTM Flows uses five design questions before recommending any automation build."
-          bottomLine="Build the decision layer first, then connect data, workflow, ownership and measurement."
-        />
-        <SourceNote source="GTM Flows delivery process and automation catalogue" />
-      </section>
 
       <section className="marketing-page-section shell compact-top">
         <div className="marketing-head-grid"><span className="section-number">The design questions</span><h2>Five questions before we automate anything.</h2></div>

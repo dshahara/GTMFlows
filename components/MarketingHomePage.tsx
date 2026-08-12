@@ -1,5 +1,4 @@
 import { DecisionFlowVisual, RevenueSystemLoop } from "@/components/MarketingExperience";
-import { KeyTakeaways, SourceNote } from "@/components/SeoBlocks";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteNav } from "@/components/SiteNav";
 import { capabilities, engagementSteps, operatingGap, revenueSystems, workedExample } from "@/lib/marketing";
@@ -14,17 +13,10 @@ export function MarketingHomePage() {
           <span className="eyebrow"><i className="live-dot" />Automated revenue systems for sales-led B2B companies</span>
           <h1>Automated revenue systems for B2B growth teams</h1>
           <p>GTM Flows builds automated revenue systems that connect CRM data, buying signals, AI research and workflow automation. We help RevOps, growth and customer success teams identify the right accounts, prioritise action and reduce manual GTM work.</p>
-          <KeyTakeaways
-            answer="GTM Flows builds automated revenue systems that convert data and signals into revenue actions."
-            bestFor="RevOps, growth, sales and customer success teams with fragmented GTM workflows."
-            stat="Published GTM Flows builds start from ₹35K and usually launch within 3–12 days."
-            bottomLine="Start with one measurable revenue bottleneck, then connect more systems as value becomes visible."
-          />
           <div className="marketing-hero-actions">
             <a className="button button-dark" href="/contact">Design my revenue system</a>
             <a className="text-link" href="/how-we-build">Explore how we build →</a>
           </div>
-          <SourceNote source="GTM Flows automation catalogue, pricing model and delivery process" />
         </div>
         <DecisionFlowVisual />
       </section>

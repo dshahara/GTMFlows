@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import type { PublicAutomation } from "@/lib/catalogue";
 import { categories, formatFullRupees } from "@/lib/catalogue";
-import { KeyTakeaways, SourceNote } from "@/components/SeoBlocks";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteNav } from "@/components/SiteNav";
 
@@ -60,14 +59,7 @@ export function HomePageClient({ automations }: HomePageClientProps) {
         </div>
         <div>
           <p>Compare {automations.length} focused GTM automations by setup price, monthly running cost, implementation time, complexity and best-fit use case. Use this catalogue to decide which manual revenue workflow should be automated first.</p>
-          <KeyTakeaways
-            answer="The catalogue helps teams compare GTM automations by cost, timing, complexity and ROI."
-            bestFor="Teams deciding which manual sales, RevOps or customer workflow to automate first."
-            stat="Current catalogue setup costs range from ₹35K to ₹1.5L across ten automation types."
-            bottomLine="Choose the workflow with clear volume, clean inputs and measurable business impact."
-          />
           <a className="button button-dark" href="#catalogue">Browse the catalogue ↓</a>
-          <SourceNote source="GTM Flows automation catalogue and ROI assumptions" />
         </div>
       </section>
 

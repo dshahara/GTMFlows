@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { MarketingFinalCta, MarketingPageHero } from "@/components/MarketingPageParts";
-import { KeyTakeaways, SourceNote } from "@/components/SeoBlocks";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteNav } from "@/components/SiteNav";
 import { CANONICAL_ORIGIN } from "@/lib/catalogue";
@@ -46,16 +45,6 @@ export default function FaqPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <SiteNav />
       <MarketingPageHero crumb="FAQ" label="Questions" title="Revenue automation FAQ for GTM teams" body="Answers about automated revenue systems, signal-led GTM, AI controls, ownership, pricing, implementation and measurable milestones." />
-
-      <section className="shell compact-top">
-        <KeyTakeaways
-          answer="Revenue automation connects data, decision rules and workflow execution across the GTM stack."
-          bestFor="Teams comparing automation, enrichment, AI controls, pricing and implementation ownership."
-          stat="GTM Flows publishes setup, running cost and implementation estimates for ten automation categories."
-          bottomLine="Use the FAQ to qualify fit before choosing a workflow or requesting a build."
-        />
-        <SourceNote source="GTM Flows commercial principles and FAQ content" />
-      </section>
 
       <section className="marketing-page-section shell compact-top">
         <div className="faq-grid">

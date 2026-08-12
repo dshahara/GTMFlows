@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
-import { KeyTakeaways, SourceNote } from "@/components/SeoBlocks";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteNav } from "@/components/SiteNav";
 import { CANONICAL_ORIGIN } from "@/lib/catalogue";
@@ -181,12 +180,6 @@ export default async function AutomationPage({ params }: PageProps) {
           <span className="section-number">{automation.category}</span>
           <h1>{getAutomationH1(automation.name)}</h1>
           <p>{automation.short}</p>
-          <KeyTakeaways
-            answer={automation.answerSummary}
-            bestFor={automation.fit}
-            stat={`Setup is ${automation.setup}, monthly running cost is ${automation.monthly}, and implementation takes ${automation.days}.`}
-            bottomLine="Build this when volume, ownership, data inputs and success metrics are already clear."
-          />
           <div className="detail-actions">
             <a className="button button-dark" href="/catalogue#roi">Calculate ROI <span>↗</span></a>
             <a className="button button-light" href="/contact">Book fit check <span>→</span></a>
@@ -195,7 +188,6 @@ export default async function AutomationPage({ params }: PageProps) {
         <aside className="answer-card">
           <span>DIRECT ANSWER</span>
           <p>{automation.answerSummary}</p>
-          <SourceNote source="GTM Flows automation catalogue, pricing estimates and implementation assumptions" />
         </aside>
       </section>
 
@@ -254,7 +246,6 @@ export default async function AutomationPage({ params }: PageProps) {
               </tr>
             </tbody>
           </table>
-          <SourceNote source="GTM Flows catalogue qualification criteria" />
         </article>
 
         {faqs.length > 0 && (

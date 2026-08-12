@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/ContactForm";
 import { MarketingPageHero } from "@/components/MarketingPageParts";
-import { KeyTakeaways, SourceNote } from "@/components/SeoBlocks";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteNav } from "@/components/SiteNav";
 import { CANONICAL_ORIGIN } from "@/lib/catalogue";
@@ -39,16 +38,6 @@ export default function ContactPage() {
         title="Request a revenue automation fit check"
         body="Show us the process, tools, approximate volume and current failure point. We will help identify whether the right first step is data repair, a decision model, workflow activation—or no automation at all."
       />
-
-      <section className="shell compact-top">
-        <KeyTakeaways
-          answer="A fit check identifies whether your first move should be data repair, workflow automation or no build."
-          bestFor="Teams with a specific revenue workflow, known tool stack and measurable bottleneck."
-          stat="Most GTM Flows catalogue automations publish an expected launch window between 3 and 12 days."
-          bottomLine="Share the workflow, tools and volume so the first recommendation is scoped realistically."
-        />
-        <SourceNote source="GTM Flows fit-check criteria and automation catalogue" />
-      </section>
 
       <section className="marketing-page-section shell compact-top">
         <div className="fit-check-card">

@@ -208,12 +208,12 @@ test("adds SEO, AEO and crawl-control routes", async () => {
   assert.match(detailPage, /FAQPage/);
   assert.match(detailPage, /BreadcrumbList/);
   assert.match(detailPage, /"@type": "Service"/);
-  assert.match(detailPage, /KeyTakeaways/);
   assert.match(detailPage, /localBusinessJsonLd/);
   assert.match(detailPage, /What does \{automation\.name\} cost in India/);
   assert.match(cataloguePage, /CollectionPage/);
   assert.match(cataloguePage, /FAQPage/);
-  assert.match(homePage, /KeyTakeaways/);
+  assert.doesNotMatch(homePage, /KeyTakeaways|Key Takeaways|source-note/);
+  assert.doesNotMatch(detailPage, /KeyTakeaways|Key Takeaways|source-note/);
   assert.match(howWeBuildPage, /How to build revenue automation systems/);
   assert.match(contactPage, /ContactPage/);
   assert.match(detailPage, /permanentRedirect/);
