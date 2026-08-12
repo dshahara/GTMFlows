@@ -1,26 +1,54 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/ContactForm";
 import { MarketingPageHero } from "@/components/MarketingPageParts";
+import { KeyTakeaways, SourceNote } from "@/components/SeoBlocks";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteNav } from "@/components/SiteNav";
 import { CANONICAL_ORIGIN } from "@/lib/catalogue";
+import { breadcrumbJsonLd, localBusinessJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Request a Revenue System Fit Check | GTM Flows",
-  description: "Share your revenue workflow, tools, volume and current bottleneck with GTM Flows to assess the right automation or data-system starting point.",
+  title: "Request a Revenue Automation Fit Check | GTM Flows",
+  description: "Request a GTM Flows fit check to identify the right revenue automation, data foundation or workflow system for your team.",
   alternates: { canonical: `${CANONICAL_ORIGIN}/contact` },
 };
 
 export default function ContactPage() {
+  const jsonLd = [
+    localBusinessJsonLd,
+    breadcrumbJsonLd([
+      { name: "Home", url: CANONICAL_ORIGIN },
+      { name: "Contact", url: `${CANONICAL_ORIGIN}/contact` },
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      name: "Request a Revenue Automation Fit Check",
+      url: `${CANONICAL_ORIGIN}/contact`,
+      description: "Request a GTM Flows fit check to identify the right revenue automation, data foundation or workflow system.",
+    },
+  ];
+
   return (
     <main className="marketing-site">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <SiteNav />
       <MarketingPageHero
         crumb="Contact"
         label="Start with the bottleneck"
-        title="Where does valuable revenue data currently stop becoming action?"
+        title="Request a revenue automation fit check"
         body="Show us the process, tools, approximate volume and current failure point. We will help identify whether the right first step is data repair, a decision model, workflow activation—or no automation at all."
       />
+
+      <section className="shell compact-top">
+        <KeyTakeaways
+          answer="A fit check identifies whether your first move should be data repair, workflow automation or no build."
+          bestFor="Teams with a specific revenue workflow, known tool stack and measurable bottleneck."
+          stat="Most GTM Flows catalogue automations publish an expected launch window between 3 and 12 days."
+          bottomLine="Share the workflow, tools and volume so the first recommendation is scoped realistically."
+        />
+        <SourceNote source="GTM Flows fit-check criteria and automation catalogue" />
+      </section>
 
       <section className="marketing-page-section shell compact-top">
         <div className="fit-check-card">

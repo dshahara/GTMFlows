@@ -1,15 +1,11 @@
 import { MarketingHomePage } from "@/components/MarketingHomePage";
 import { CANONICAL_ORIGIN } from "@/lib/catalogue";
+import { localBusinessJsonLd, organizationJsonLd } from "@/lib/seo";
 
 export default function Home() {
   const jsonLd = [
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      name: "GTM Flows",
-      url: CANONICAL_ORIGIN,
-      description: "GTM Flows builds automated revenue systems using data enrichment, buying signals, AI research and workflow automation.",
-    },
+    organizationJsonLd,
+    localBusinessJsonLd,
     {
       "@context": "https://schema.org",
       "@type": "WebSite",

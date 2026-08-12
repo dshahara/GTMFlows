@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import { MarketingFinalCta, MarketingPageHero } from "@/components/MarketingPageParts";
+import { KeyTakeaways, SourceNote } from "@/components/SeoBlocks";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteNav } from "@/components/SiteNav";
 import { CANONICAL_ORIGIN } from "@/lib/catalogue";
 import { faqItems } from "@/lib/marketing";
+import { breadcrumbJsonLd, localBusinessJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Revenue Systems FAQ | GTM Flows",
-  description: "Answers about automated revenue systems, signal-led GTM, AI controls, implementation, ownership, pricing and measurable milestones.",
+  title: "Revenue Automation FAQ for GTM Teams | GTM Flows",
+  description: "Answers on revenue automation, signal-led GTM, AI controls, pricing, ownership, implementation and measurable milestones.",
   alternates: { canonical: `${CANONICAL_ORIGIN}/faq` },
 };
 
@@ -22,21 +24,38 @@ const commercialPrinciples = [
 ] as const;
 
 export default function FaqPage() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqItems.map(([question, answer]) => ({
-      "@type": "Question",
-      name: question,
-      acceptedAnswer: { "@type": "Answer", text: answer },
-    })),
-  };
+  const jsonLd = [
+    localBusinessJsonLd,
+    breadcrumbJsonLd([
+      { name: "Home", url: CANONICAL_ORIGIN },
+      { name: "FAQ", url: `${CANONICAL_ORIGIN}/faq` },
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqItems.map(([question, answer]) => ({
+        "@type": "Question",
+        name: question,
+        acceptedAnswer: { "@type": "Answer", text: answer },
+      })),
+    },
+  ];
 
   return (
     <main className="marketing-site">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <SiteNav />
-      <MarketingPageHero crumb="FAQ" label="Questions" title="What teams ask before the first build." body="Scope, ownership, tooling, pricing and what we will—and will not—promise." />
+      <MarketingPageHero crumb="FAQ" label="Questions" title="Revenue automation FAQ for GTM teams" body="Answers about automated revenue systems, signal-led GTM, AI controls, ownership, pricing, implementation and measurable milestones." />
+
+      <section className="shell compact-top">
+        <KeyTakeaways
+          answer="Revenue automation connects data, decision rules and workflow execution across the GTM stack."
+          bestFor="Teams comparing automation, enrichment, AI controls, pricing and implementation ownership."
+          stat="GTM Flows publishes setup, running cost and implementation estimates for ten automation categories."
+          bottomLine="Use the FAQ to qualify fit before choosing a workflow or requesting a build."
+        />
+        <SourceNote source="GTM Flows commercial principles and FAQ content" />
+      </section>
 
       <section className="marketing-page-section shell compact-top">
         <div className="faq-grid">

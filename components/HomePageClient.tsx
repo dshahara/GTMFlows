@@ -3,12 +3,20 @@
 import { useMemo, useState } from "react";
 import type { PublicAutomation } from "@/lib/catalogue";
 import { categories, formatFullRupees } from "@/lib/catalogue";
+import { KeyTakeaways, SourceNote } from "@/components/SeoBlocks";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteNav } from "@/components/SiteNav";
 
 type HomePageClientProps = {
   automations: PublicAutomation[];
 };
+
+const catalogueFaqs = [
+  ["Which GTM automation should we build first?", "Start with a workflow that already has volume, clear ownership, measurable time cost and reliable input data."],
+  ["How much does a GTM automation cost?", "Published GTM Flows catalogue builds currently range from ₹35K to ₹1.5L setup, with separate monthly running costs."],
+  ["What running costs should we expect?", "Running costs depend on records, enrichment providers, AI usage, automation tools and messaging volume."],
+  ["Can one automation connect to a broader revenue system?", "Yes. A focused automation can become the first connected layer of a wider revenue system."],
+] as const;
 
 export function HomePageClient({ automations }: HomePageClientProps) {
   const [category, setCategory] = useState("All");
@@ -48,11 +56,18 @@ export function HomePageClient({ automations }: HomePageClientProps) {
         <div>
           <div className="breadcrumbs"><a href="/">Home</a><span>/</span><span>Automation Catalogue</span></div>
           <span className="section-number">Ready-to-deploy automations</span>
-          <h1>Know what to automate. Know what it costs.</h1>
+          <h1>GTM automation catalogue for revenue teams</h1>
         </div>
         <div>
-          <p>Compare {automations.length} focused GTM automations by setup price, monthly running cost, implementation time, complexity and best-fit use case.</p>
+          <p>Compare {automations.length} focused GTM automations by setup price, monthly running cost, implementation time, complexity and best-fit use case. Use this catalogue to decide which manual revenue workflow should be automated first.</p>
+          <KeyTakeaways
+            answer="The catalogue helps teams compare GTM automations by cost, timing, complexity and ROI."
+            bestFor="Teams deciding which manual sales, RevOps or customer workflow to automate first."
+            stat="Current catalogue setup costs range from ₹35K to ₹1.5L across ten automation types."
+            bottomLine="Choose the workflow with clear volume, clean inputs and measurable business impact."
+          />
           <a className="button button-dark" href="#catalogue">Browse the catalogue ↓</a>
+          <SourceNote source="GTM Flows automation catalogue and ROI assumptions" />
         </div>
       </section>
 
@@ -170,6 +185,22 @@ export function HomePageClient({ automations }: HomePageClientProps) {
           <article><span>02</span><h3>Confirm</h3><p>We verify tools, rules, edge cases, acceptance criteria and final running cost.</p></article>
           <article><span>03</span><h3>Launch</h3><p>We build, test, document and deploy inside accounts owned by your company.</p></article>
           <article><span>04</span><h3>Measure</h3><p>Compare the result with the baseline and decide whether to automate the next process.</p></article>
+        </div>
+      </section>
+
+      <section className="marketing-page-section shell compact-top">
+        <div className="marketing-head-grid">
+          <span className="section-number">Catalogue FAQ</span>
+          <h2>What should a team know before choosing a GTM automation?</h2>
+          <p>These questions help qualify whether a workflow is ready for automation or needs data cleanup first.</p>
+        </div>
+        <div className="faq-list">
+          {catalogueFaqs.map(([question, answer]) => (
+            <section key={question}>
+              <h3>{question}</h3>
+              <p>{answer}</p>
+            </section>
+          ))}
         </div>
       </section>
 

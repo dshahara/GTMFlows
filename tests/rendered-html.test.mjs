@@ -193,8 +193,12 @@ test("publishes the current editor draft and exposes a protected draft preview",
 });
 
 test("adds SEO, AEO and crawl-control routes", async () => {
-  const [detailPage, sitemap, robots, llms, layout] = await Promise.all([
+  const [detailPage, cataloguePage, homePage, howWeBuildPage, contactPage, sitemap, robots, llms, layout] = await Promise.all([
     text("app/automations/[slug]/page.tsx"),
+    text("app/catalogue/page.tsx"),
+    text("components/MarketingHomePage.tsx"),
+    text("app/how-we-build/page.tsx"),
+    text("app/contact/page.tsx"),
     text("app/sitemap.xml/route.ts"),
     text("app/robots.txt/route.ts"),
     text("app/llms.txt/route.ts"),
@@ -204,6 +208,14 @@ test("adds SEO, AEO and crawl-control routes", async () => {
   assert.match(detailPage, /FAQPage/);
   assert.match(detailPage, /BreadcrumbList/);
   assert.match(detailPage, /"@type": "Service"/);
+  assert.match(detailPage, /KeyTakeaways/);
+  assert.match(detailPage, /localBusinessJsonLd/);
+  assert.match(detailPage, /What does \{automation\.name\} cost in India/);
+  assert.match(cataloguePage, /CollectionPage/);
+  assert.match(cataloguePage, /FAQPage/);
+  assert.match(homePage, /KeyTakeaways/);
+  assert.match(howWeBuildPage, /How to build revenue automation systems/);
+  assert.match(contactPage, /ContactPage/);
   assert.match(detailPage, /permanentRedirect/);
   assert.match(sitemap, /getPublishedAutomations/);
   assert.match(robots, /Disallow: \/admin/);
