@@ -152,6 +152,12 @@ test("ships the uploaded logo and favicon assets without public brand-detail dow
 
   const logo = await text("public/gf-logo.svg");
   assert.match(logo, /data:image\/png;base64/);
+
+  const designSystemChrome = await text("Design system/ui_kits/website-v2/Chrome.jsx");
+  const designSystemCss = await text("Design system/ui_kits/website-v2/brand.css");
+  await stat(new URL("Design system/ui_kits/website-v2/assets/gf-logo.png", root));
+  assert.match(designSystemChrome, /assets\/gf-logo\.png/);
+  assert.match(designSystemCss, /object-fit:cover/);
 });
 
 test("accepts contact inquiries through a Slack-ready endpoint", async () => {
