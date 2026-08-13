@@ -21,27 +21,21 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(CANONICAL_ORIGIN),
     alternates: { canonical: CANONICAL_ORIGIN },
     icons: {
-      icon: [
-        { url: "/favicon.ico", sizes: "any" },
-        { url: "/favicon.svg", type: "image/svg+xml" },
-        { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
-        { url: "/favicon-192.png", sizes: "192x192", type: "image/png" },
-      ],
-      shortcut: "/favicon.ico",
-      apple: "/favicon.png",
+      icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+      shortcut: "/favicon.svg",
     },
     openGraph: {
       title: "Build a revenue system that knows who to target and why now.",
       description: "Connect revenue data, buying signals and GTM tools to identify opportunities, prioritise action and automate execution.",
       type: "website",
       url: CANONICAL_ORIGIN,
-      images: [{ url: `${CANONICAL_ORIGIN}/og.png`, width: 1200, height: 630, alt: "GTM Flows automation catalogue" }],
+      images: [{ url: `${CANONICAL_ORIGIN}/gf-logo.svg`, width: 1200, height: 1200, alt: "GTM Flows logo" }],
     },
     twitter: {
       card: "summary_large_image",
       title: "Build a revenue system that knows who to target and why now.",
       description: "Connect revenue data, buying signals and GTM tools to identify opportunities, prioritise action and automate execution.",
-      images: [`${CANONICAL_ORIGIN}/og.png`],
+      images: [`${CANONICAL_ORIGIN}/gf-logo.svg`],
     },
   };
 }

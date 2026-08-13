@@ -89,13 +89,10 @@ test("keeps public navigation customer-facing and defines a favicon", async () =
   assert.doesNotMatch(homepage, /href="\/admin">Admin/);
   assert.doesNotMatch(detailPage, /href="\/admin">Admin/);
   assert.match(layout, /favicon\.svg/);
-  assert.match(layout, /favicon\.ico/);
-  assert.match(layout, /favicon-32\.png/);
-  assert.match(layout, /favicon-192\.png/);
   assert.match(favicon, /<svg/);
-  assert.match(favicon, /data:image\/png;base64/);
+  assert.doesNotMatch(favicon, /data:image\/png;base64/);
   assert.match(brand, /BRAND_WORDMARK = "GTM Flows"/);
-  assert.match(brand, /BRAND_LOGO_SRC = "\/gf-logo\.png"/);
+  assert.match(brand, /BRAND_LOGO_SRC = "\/gf-logo\.svg"/);
   assert.doesNotMatch(nav, /GTM\/FLOWS/);
   assert.doesNotMatch(footer, /GTM\/FLOWS/);
   assert.match(nav, /BRAND_LOGO_SRC/);
@@ -140,11 +137,8 @@ test("ships the revenue-systems positioning as concise, connected website pages"
 test("ships the uploaded logo and favicon assets without public brand-detail downloads", async () => {
   const assets = [
     "public/gf-logo.svg",
-    "public/gf-logo.png",
-    "public/favicon.png",
-    "public/favicon.ico",
-    "public/favicon-192.png",
-    "public/favicon-32.png",
+    "public/favicon.svg",
+    "Design system/ui_kits/website-v2/assets/gf-logo.svg",
   ];
 
   for (const asset of assets) {
@@ -165,12 +159,14 @@ test("ships the uploaded logo and favicon assets without public brand-detail dow
   }
 
   const logo = await text("public/gf-logo.svg");
-  assert.match(logo, /data:image\/png;base64/);
+  assert.match(logo, /<svg/);
+  assert.doesNotMatch(logo, /data:image\/png;base64/);
+  assert.match(logo, /G\/F/);
 
   const designSystemChrome = await text("Design system/ui_kits/website-v2/Chrome.jsx");
   const designSystemCss = await text("Design system/ui_kits/website-v2/brand.css");
-  await stat(new URL("Design system/ui_kits/website-v2/assets/gf-logo.png", root));
-  assert.match(designSystemChrome, /assets\/gf-logo\.png/);
+  await stat(new URL("Design system/ui_kits/website-v2/assets/gf-logo.svg", root));
+  assert.match(designSystemChrome, /assets\/gf-logo\.svg/);
   assert.doesNotMatch(designSystemChrome, /GTM\/FLOWS/);
   assert.match(designSystemCss, /object-fit:cover/);
 });

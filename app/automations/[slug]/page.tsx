@@ -34,13 +34,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: getAutomationMetaDescription(automation),
       type: "article",
       url,
-      images: [{ url: `${CANONICAL_ORIGIN}/og.png`, width: 1200, height: 630, alt: `${automation.name} by GTM Flows` }],
+      images: [{ url: `${CANONICAL_ORIGIN}/gf-logo.svg`, width: 1200, height: 1200, alt: `${automation.name} by GTM Flows` }],
     },
     twitter: {
       card: "summary_large_image",
       title: getAutomationSeoTitle(automation.name, automation.seoTitle),
       description: getAutomationMetaDescription(automation),
-      images: [`${CANONICAL_ORIGIN}/og.png`],
+      images: [`${CANONICAL_ORIGIN}/gf-logo.svg`],
     },
   };
 }
