@@ -277,7 +277,8 @@ test("ships Netlify and Supabase deployment metadata", async () => {
   assert.doesNotMatch(packageJson, /vinext|wrangler|drizzle-kit/);
   assert.match(netlifyConfig, /publish = "\.next"/);
   assert.match(envExample, /NEXT_PUBLIC_SUPABASE_URL=/);
-  assert.match(envExample, /SUPABASE_SERVICE_ROLE_KEY=/);
+  assert.match(envExample, /SUPABASE_SECRET_KEY=/);
+  assert.match(envExample, /NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=/);
   assert.match(migration, /enable row level security/);
   assert.match(migrationDocs, /Netlify \+ Supabase migration/);
   assert.match(credentialDocs, /Project URL/);

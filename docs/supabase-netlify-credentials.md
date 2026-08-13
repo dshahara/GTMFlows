@@ -5,8 +5,8 @@ Send these values when you are ready for me to connect the live deployment:
 ## Supabase
 
 - Project URL: `https://xxxxx.supabase.co`
-- Anon/public key
-- Service role key
+- Publishable key
+- Secret key
 
 ## Netlify
 

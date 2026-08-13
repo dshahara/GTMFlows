@@ -40,13 +40,16 @@ Set these in Netlify:
 
 ```text
 NEXT_PUBLIC_SITE_URL=https://gtmflows.co
+SUPABASE_URL=
+SUPABASE_PUBLISHABLE_KEY=
+SUPABASE_SECRET_KEY=
+SUPABASE_JWKS_URL=
 NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
 SLACK_WEBHOOK_URL=
 ```
 
-Do not expose `SUPABASE_SERVICE_ROLE_KEY` in browser code, client components, screenshots, or public repositories.
+Do not expose `SUPABASE_SECRET_KEY` in browser code, client components, screenshots, or public repositories.
 
 ## Admin access
 
