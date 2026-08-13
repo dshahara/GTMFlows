@@ -1,6 +1,5 @@
-import { requireChatGPTUser, chatGPTSignOutPath } from "@/app/chatgpt-auth";
 import { AdminDashboard } from "@/components/AdminDashboard";
-import { ADMIN_EMAILS } from "@/lib/catalogue";
+import { accessDeniedMessage, requireAdminUser, signOutPath } from "@/lib/auth";
 import { getCatalogueRecords, isAdminEmail } from "@/lib/catalogue-store";
 
 export const dynamic = "force-dynamic";
@@ -11,15 +10,15 @@ export const metadata = {
 };
 
 export default async function AdminPage() {
-  const user = await requireChatGPTUser("/admin");
+  const user = await requireAdminUser("/admin");
   if (!isAdminEmail(user.email)) {
     return (
       <main className="admin-denied">
         <div>
           <span className="section-number">Access denied</span>
-          <h1>This ChatGPT account is not approved for GTM Flows admin.</h1>
-          <p>Signed in as {user.email}. Approved admins are {ADMIN_EMAILS.join(" and ")}.</p>
-          <a className="button button-dark" href={chatGPTSignOutPath("/admin")}>Sign out</a>
+          <h1>This email is not approved for GTM Flows admin.</h1>
+          <p>{accessDeniedMessage(user.email)}</p>
+          <a className="button button-dark" href={signOutPath("/admin")}>Sign out</a>
         </div>
       </main>
     );

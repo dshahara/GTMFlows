@@ -1,5 +1,3 @@
-import { env } from "cloudflare:workers";
-
 export const dynamic = "force-dynamic";
 
 type InquiryPayload = {
@@ -75,16 +73,8 @@ function validateInquiry(inquiry: ReturnType<typeof normalizeInquiry>) {
 }
 
 function getEnvString(key: string) {
-  const values = [
-    (env as unknown as Record<string, unknown>)[key],
-    typeof process !== "undefined" ? process.env[key] : undefined,
-  ];
-
-  for (const value of values) {
-    if (typeof value === "string" && value.trim()) return value.trim();
-  }
-
-  return "";
+  const value = process.env[key];
+  return typeof value === "string" ? value.trim() : "";
 }
 
 function toSlackMessage(inquiry: ReturnType<typeof normalizeInquiry>, requestUrl: string) {

@@ -250,6 +250,17 @@
 .fit-check-note { margin: 0; color: #596516; font-size: 12px; line-height: 1.5; }
 .fit-check-form .form-message { margin: 0; max-width: none; }
 
+.auth-page { min-height: 100vh; background: var(--paper); }
+.auth-shell { display: grid; place-items: center; min-height: calc(100vh - 96px); padding-block: 70px; }
+.login-card { width: min(100%, 520px); display: grid; gap: 18px; border: 1px solid var(--line); border-radius: 24px; background: var(--white); padding: 38px; box-shadow: 12px 12px 0 var(--lime); }
+.login-card h1 { margin: 0; font-size: clamp(34px, 4vw, 52px); line-height: .98; letter-spacing: -.06em; }
+.login-card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
+.login-card label { display: flex; flex-direction: column; gap: 8px; color: var(--muted); font: 700 10px var(--font-geist-mono); text-transform: uppercase; letter-spacing: .08em; }
+.login-card input { width: 100%; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); color: var(--ink); padding: 14px 13px; outline: none; font: 15px var(--font-geist-sans); text-transform: none; letter-spacing: 0; }
+.login-card input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(83,103,255,.16); }
+.login-card button { width: fit-content; }
+.login-message { color: var(--ink) !important; font-weight: 650; }
+
 .marketing-final-cta { display: grid; grid-template-columns: 1.15fr .85fr; gap: 70px; align-items: end; margin-block: 24px; padding: 64px; border-radius: 24px; background: var(--blue); color: #fff; }
 .marketing-final-cta .section-number { color: #d0d4ff; }
 .marketing-final-cta h2 { margin: 18px 0 0; font-size: clamp(40px, 4.6vw, 64px); line-height: .99; letter-spacing: -.06em; font-weight: 620; }

@@ -53,7 +53,7 @@ export type PublicAutomation = AutomationContent & {
   days: string;
 };
 
-export const CANONICAL_ORIGIN = "https://gtmflows.co";
+export const CANONICAL_ORIGIN = (process.env.NEXT_PUBLIC_SITE_URL || "https://gtmflows.co").replace(/\/$/, "");
 export const ADMIN_EMAILS = ["deepanshu06@gmail.com", "amrish.connect@gmail.com"];
 
 export const categories = ["All", "Lead flow", "Research", "Sales admin", "CRM data", "Pipeline", "Signals"];

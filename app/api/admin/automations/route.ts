@@ -1,5 +1,5 @@
-import { getChatGPTUser } from "@/app/chatgpt-auth";
 import type { AutomationContent } from "@/lib/catalogue";
+import { getAuthenticatedUser } from "@/lib/auth";
 import {
   createAutomation,
   duplicateAutomation,
@@ -15,7 +15,7 @@ import {
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const user = await getChatGPTUser();
+  const user = await getAuthenticatedUser();
   if (!user) return Response.json({ error: "Sign in required." }, { status: 401 });
   if (!isAdminEmail(user.email)) return Response.json({ error: "Access denied." }, { status: 403 });
 
@@ -28,7 +28,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const user = await getChatGPTUser();
+  const user = await getAuthenticatedUser();
   if (!user) return Response.json({ error: "Sign in required." }, { status: 401 });
   if (!isAdminEmail(user.email)) return Response.json({ error: "Access denied." }, { status: 403 });
 

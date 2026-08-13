@@ -1,0 +1,18 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[[redirects]]
+  from = "/automation/:slug"
+  to = "/automations/:slug"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/automation"
+  to = "/catalogue"
+  status = 301
+  force = true

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { requireChatGPTUser } from "@/app/chatgpt-auth";
+import { requireAdminUser } from "@/lib/auth";
 import { AUTOMATIONS_BASE_PATH, BRAND_LOGO_SRC, BRAND_WORDMARK } from "@/lib/brand";
 import { getCatalogueRecord, isAdminEmail } from "@/lib/catalogue-store";
 import { toPublicAutomation } from "@/lib/catalogue";
@@ -16,7 +16,7 @@ export const metadata = {
 };
 
 export default async function AdminPreviewPage({ params }: PageProps) {
-  const user = await requireChatGPTUser("/admin");
+  const user = await requireAdminUser("/admin");
   if (!isAdminEmail(user.email)) notFound();
 
   const { id } = await Promise.resolve(params);

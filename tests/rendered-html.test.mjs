@@ -8,36 +8,44 @@ async function text(path) {
   return readFile(new URL(path, root), "utf8");
 }
 
-test("defines the database-backed catalogue and seeds all 10 automations", async () => {
+test("defines the Supabase-backed catalogue and seeds all 10 automations", async () => {
   const [catalogue, schema, store, migration] = await Promise.all([
     text("lib/catalogue.ts"),
     text("db/schema.ts"),
     text("lib/catalogue-store.ts"),
-    text("drizzle/0000_dry_epoch.sql"),
+    text("supabase/migrations/0001_catalogue.sql"),
   ]);
 
-  assert.match(schema, /sqliteTable\(\s*"automations"/);
-  assert.match(schema, /sqliteTable\(\s*"automation_slug_redirects"/);
+  assert.match(schema, /AutomationTableRow/);
+  assert.match(migration, /create table if not exists public\.automations/);
+  assert.match(migration, /jsonb not null/);
+  assert.match(store, /createSupabaseAdminClient/);
   assert.match(store, /published_json/);
   assert.match(store, /draft_json/);
-  assert.match(migration, /CREATE TABLE `automations`/);
+  assert.match(store, /seedDatabaseIfEmpty/);
   assert.equal((catalogue.match(/slug: "/g) ?? []).length, 10);
   assert.match(catalogue, /Lead Source & CRM Sync/);
   assert.match(catalogue, /Captures source and campaign information/);
 });
 
-test("keeps admin access behind ChatGPT sign-in and email allowlist", async () => {
-  const [adminPage, apiRoute, catalogue] = await Promise.all([
+test("keeps admin access behind Supabase auth and email allowlist", async () => {
+  const [adminPage, apiRoute, loginPage, loginForm, proxy, catalogue] = await Promise.all([
     text("app/admin/page.tsx"),
     text("app/api/admin/automations/route.ts"),
+    text("app/login/page.tsx"),
+    text("components/auth/LoginForm.tsx"),
+    text("proxy.ts"),
     text("lib/catalogue.ts"),
   ]);
 
-  assert.match(adminPage, /requireChatGPTUser\("\/admin"\)/);
-  assert.match(apiRoute, /getChatGPTUser/);
+  assert.match(adminPage, /requireAdminUser\("\/admin"\)/);
+  assert.match(apiRoute, /getAuthenticatedUser/);
   assert.match(apiRoute, /isAdminEmail/);
   assert.match(apiRoute, /status: 401/);
   assert.match(apiRoute, /status: 403/);
+  assert.match(loginPage, /Supabase Auth is not configured yet/);
+  assert.match(loginForm, /signInWithOtp/);
+  assert.match(proxy, /createServerClient/);
   assert.match(catalogue, /deepanshu06@gmail\.com/);
   assert.match(catalogue, /amrish\.connect@gmail\.com/);
 });
@@ -168,14 +176,14 @@ test("ships the uploaded logo and favicon assets without public brand-detail dow
 });
 
 test("keeps plural automation URLs canonical and redirects singular URLs", async () => {
-  const [brand, singularIndex, singularSlug, detailPage, sitemap, llms, netlifyExample, migrationPlan] = await Promise.all([
+  const [brand, singularIndex, singularSlug, detailPage, sitemap, llms, netlifyConfig, migrationPlan] = await Promise.all([
     text("lib/brand.ts"),
     text("app/automation/page.tsx"),
     text("app/automation/[slug]/page.tsx"),
     text("app/automations/[slug]/page.tsx"),
     text("app/sitemap.xml/route.ts"),
     text("app/llms.txt/route.ts"),
-    text("netlify.toml.example"),
+    text("netlify.toml"),
     text("docs/netlify-migration.md"),
   ]);
 
@@ -185,7 +193,7 @@ test("keeps plural automation URLs canonical and redirects singular URLs", async
   assert.match(detailPage, /AUTOMATIONS_BASE_PATH/);
   assert.doesNotMatch(sitemap, /\/automation\//);
   assert.doesNotMatch(llms, /\/automation\//);
-  assert.match(netlifyExample, /\/automation\/:slug/);
+  assert.match(netlifyConfig, /\/automation\/:slug/);
   assert.match(migrationPlan, /\/automation\/\[slug\] -> \/automations\/\[slug\]/);
 });
 
@@ -216,7 +224,7 @@ test("publishes the current editor draft and exposes a protected draft preview",
   assert.doesNotMatch(dashboard, /Preview live/);
   assert.match(apiRoute, /payload\.draft/);
   assert.match(apiRoute, /updateAutomationDraft/);
-  assert.match(previewPage, /requireChatGPTUser\("\/admin"\)/);
+  assert.match(previewPage, /requireAdminUser\("\/admin"\)/);
   assert.match(previewPage, /getCatalogueRecord/);
   assert.match(previewPage, /DIRECT ANSWER PREVIEW/);
 });
@@ -255,14 +263,38 @@ test("adds SEO, AEO and crawl-control routes", async () => {
   assert.match(await text("lib/catalogue.ts"), /https:\/\/gtmflows\.co/);
 });
 
-test("ships deployable build artifacts with hosting metadata and migrations", async () => {
-  const [server, hosting, migration] = await Promise.all([
-    text("dist/server/index.js"),
-    text("dist/.openai/hosting.json"),
-    text("dist/.openai/drizzle/0000_dry_epoch.sql"),
+test("ships Netlify and Supabase deployment metadata", async () => {
+  const [packageJson, netlifyConfig, envExample, migration, migrationDocs, credentialDocs] = await Promise.all([
+    text("package.json"),
+    text("netlify.toml"),
+    text(".env.example"),
+    text("supabase/migrations/0001_catalogue.sql"),
+    text("docs/netlify-migration.md"),
+    text("docs/supabase-netlify-credentials.md"),
   ]);
 
-  assert.match(server, /vinext/);
-  assert.match(hosting, /"d1": "DB"/);
-  assert.match(migration, /CREATE TABLE `automations`/);
+  assert.match(packageJson, /"build": "next build"/);
+  assert.doesNotMatch(packageJson, /vinext|wrangler|drizzle-kit/);
+  assert.match(netlifyConfig, /publish = "\.next"/);
+  assert.match(envExample, /NEXT_PUBLIC_SUPABASE_URL=/);
+  assert.match(envExample, /SUPABASE_SERVICE_ROLE_KEY=/);
+  assert.match(migration, /enable row level security/);
+  assert.match(migrationDocs, /Netlify \+ Supabase migration/);
+  assert.match(credentialDocs, /Project URL/);
+});
+
+test("removes runtime dependencies on Cloudflare D1 and ChatGPT auth", async () => {
+  const files = [
+    "app/api/contact/route.ts",
+    "app/api/admin/automations/route.ts",
+    "lib/catalogue-store.ts",
+    "lib/private-access.tsx",
+    "db/index.ts",
+  ];
+
+  for (const file of files) {
+    const content = await text(file);
+    assert.doesNotMatch(content, /cloudflare:workers/);
+    assert.doesNotMatch(content, /ChatGPT|chatGPT|signin-with-chatgpt|oai-authenticated/);
+  }
 });

@@ -1,79 +1,110 @@
-# Netlify migration plan for GTM Flows
+# Netlify + Supabase migration for GTM Flows
 
-## Current hosting reality
+## Target architecture
 
-The current GTM Flows app is not a plain static Vite site or standard Next.js app. It is built with Vinext for OpenAI Sites and uses:
+GTM Flows now uses a Netlify-first application architecture:
 
-- Cloudflare D1 through the `DB` binding.
-- Server-side catalogue routes that read published records from D1.
-- `/admin` and write endpoints protected by ChatGPT sign-in headers.
-- Dynamic sitemap, `llms.txt`, automation pages and admin preview pages.
+- Next.js app hosted on Netlify.
+- Supabase Postgres for the automation catalogue.
+- Supabase Auth for admin sign-in.
+- Server-side allowlist for approved admin emails.
+- Netlify environment variables for secrets.
+- Slack webhook delivery through the existing `/api/contact` route.
 
-Because of this, deploying the current `dist` folder to Netlify would not produce a working copy of the same website. The build output is Cloudflare/Sites-oriented and `dist/client` does not contain a complete static `index.html` site.
+The current production Sites deployment can stay live until the Netlify deployment is verified and the `gtmflows.co` DNS is switched.
 
-## Recommended Git-based Netlify approach
+## Required Supabase setup
 
-### Path A — fastest public-site move
+1. Create a free Supabase project.
+2. Open the Supabase SQL editor.
+3. Run:
 
-Use Netlify for the public marketing site and keep the admin/catalogue database on Sites until the backend is migrated.
-
-This gives the speed benefit quickly, but catalogue edits from `/admin` will not automatically update the Netlify copy unless a static export or rebuild pipeline is added.
-
-Required work:
-
-1. Add a static public export pipeline for homepage, catalogue, FAQ, contact and every `/automations/[slug]` page.
-2. Add a Netlify Function for `/api/contact` or point the form to another backend.
-3. Keep `/admin` on the existing private Sites URL or move it to a private subdomain later.
-4. Connect the Git repository to Netlify.
-5. Set `gtmflows.co` as the Netlify primary domain after validating the static output.
-
-### Path B — full Netlify migration
-
-Move the entire app, including admin, catalogue publishing and APIs, to Netlify.
-
-Required work:
-
-1. Replace Cloudflare D1 with a Netlify-compatible database such as Neon Postgres, Supabase or another managed database.
-2. Replace ChatGPT sign-in headers with Netlify-compatible authentication.
-3. Move admin and public API routes to Netlify Functions or a standard framework runtime.
-4. Rebuild the app as a Netlify-supported framework output.
-5. Run database migration, route, auth and SEO tests.
-6. Switch DNS after production verification.
-
-## Netlify CLI status
-
-The local Netlify CLI is authenticated as `deepanshu@indibuying.com`, but this repository is not linked to a Netlify site yet.
-
-Useful commands after the migration path is chosen:
-
-```bash
-npx netlify init
-npx netlify link
-npx netlify deploy
-npx netlify deploy --prod
+```text
+supabase/migrations/0001_catalogue.sql
 ```
 
-## URL policy
+4. Go to Authentication settings and enable email login.
+5. Add this production redirect URL:
 
-Canonical automation pages remain:
+```text
+https://gtmflows.co/auth/callback
+```
+
+6. Also add the Netlify preview URL callback after the first Netlify deploy.
+
+The app will seed the first 10 automation records automatically when the `automations` table exists and is empty.
+
+## Required environment variables
+
+Set these in Netlify:
+
+```text
+NEXT_PUBLIC_SITE_URL=https://gtmflows.co
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+SLACK_WEBHOOK_URL=
+```
+
+Do not expose `SUPABASE_SERVICE_ROLE_KEY` in browser code, client components, screenshots, or public repositories.
+
+## Admin access
+
+Admin access is controlled in code by:
+
+```text
+deepanshu06@gmail.com
+amrish.connect@gmail.com
+```
+
+Both emails must exist as Supabase Auth users after they sign in the first time. Any other signed-in user sees an access-denied page.
+
+## Netlify setup
+
+The repo includes:
+
+```text
+netlify.toml
+```
+
+Build settings:
+
+```text
+Build command: npm run build
+Publish directory: .next
+Node version: 22
+```
+
+Canonical automation pages are:
 
 ```text
 /automations/[slug]
 ```
 
-Legacy or mistaken singular URLs now redirect:
+Legacy or mistaken singular URLs redirect:
 
 ```text
 /automation/[slug] -> /automations/[slug]
 /automation -> /catalogue
 ```
 
-## Brand asset policy
+## Deployment sequence
 
-The React app now reads the public logo path and wordmark from:
+1. Commit and push this repo to GitHub.
+2. Import the repo into Netlify.
+3. Add the environment variables.
+4. Deploy once on the Netlify preview domain.
+5. Add the preview callback URL to Supabase Auth.
+6. Test:
+   - homepage
+   - catalogue
+   - one automation detail page
+   - `/admin` login
+   - draft save/publish
+   - contact form Slack delivery
+7. Attach `gtmflows.co` and `www.gtmflows.co` in Netlify.
+8. Update DNS only after preview testing passes.
 
-```text
-lib/brand.ts
-```
+## Rollback safety
 
-When the logo changes, update the files under `public/` and keep the source path constant unless the whole asset strategy changes.
+Do not remove the existing Sites deployment or DNS setup until Netlify production is fully tested. The current Sites deployment remains the rollback path while this migration is in progress.
