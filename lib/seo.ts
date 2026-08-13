@@ -1,12 +1,13 @@
 import { CANONICAL_ORIGIN } from "@/lib/catalogue";
+import { BRAND_LOGO_SRC, BRAND_NAME } from "@/lib/brand";
 
 export const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "GTM Flows",
+  name: BRAND_NAME,
   alternateName: "GTMFlows",
   url: CANONICAL_ORIGIN,
-  logo: `${CANONICAL_ORIGIN}/gf-logo.png`,
+  logo: `${CANONICAL_ORIGIN}${BRAND_LOGO_SRC}`,
   sameAs: ["https://www.linkedin.com/company/gtm-flows/"],
   description: "GTM Flows builds automated revenue systems using AI, data enrichment and workflow automation.",
 };
@@ -14,9 +15,9 @@ export const organizationJsonLd = {
 export const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  name: "GTM Flows",
+  name: BRAND_NAME,
   url: CANONICAL_ORIGIN,
-  image: `${CANONICAL_ORIGIN}/gf-logo.png`,
+  image: `${CANONICAL_ORIGIN}${BRAND_LOGO_SRC}`,
   address: {
     "@type": "PostalAddress",
     addressLocality: "Bengaluru",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteNav } from "@/components/SiteNav";
+import { AUTOMATIONS_BASE_PATH, BRAND_NAME } from "@/lib/brand";
 import { CANONICAL_ORIGIN } from "@/lib/catalogue";
 import { findPublishedAutomationBySlug, getPublishedAutomations } from "@/lib/catalogue-store";
 import { localBusinessJsonLd } from "@/lib/seo";
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const automation = lookup.automation;
-  const url = `${CANONICAL_ORIGIN}/automations/${automation.slug}`;
+  const url = `${CANONICAL_ORIGIN}${AUTOMATIONS_BASE_PATH}/${automation.slug}`;
   return {
     title: getAutomationSeoTitle(automation.name, automation.seoTitle),
     description: getAutomationMetaDescription(automation),
@@ -112,7 +113,7 @@ export default async function AutomationPage({ params }: PageProps) {
   const lookup = await findPublishedAutomationBySlug(slug);
 
   if (lookup.kind === "redirect") {
-    permanentRedirect(`/automations/${lookup.toSlug}`);
+    permanentRedirect(`${AUTOMATIONS_BASE_PATH}/${lookup.toSlug}`);
   }
   if (lookup.kind === "missing") notFound();
 
@@ -121,13 +122,13 @@ export default async function AutomationPage({ params }: PageProps) {
   const related = (await getPublishedAutomations())
     .filter((item) => item.slug !== automation.slug && item.category === automation.category)
     .slice(0, 3);
-  const url = `${CANONICAL_ORIGIN}/automations/${automation.slug}`;
+  const url = `${CANONICAL_ORIGIN}${AUTOMATIONS_BASE_PATH}/${automation.slug}`;
   const jsonLd = [
     {
       "@context": "https://schema.org",
       "@type": "Service",
       name: automation.name,
-      provider: { "@type": "Organization", name: "GTM Flows", url: CANONICAL_ORIGIN },
+      provider: { "@type": "Organization", name: BRAND_NAME, url: CANONICAL_ORIGIN },
       areaServed: "India",
       serviceType: "GTM automation",
       url,
@@ -268,7 +269,7 @@ export default async function AutomationPage({ params }: PageProps) {
         <span className="section-number">Related automations</span>
         <div className="related-grid">
           {related.length ? related.map((item) => (
-            <a className={`related-card accent-${item.accent}`} href={`/automations/${item.slug}`} key={item.slug}>
+            <a className={`related-card accent-${item.accent}`} href={`${AUTOMATIONS_BASE_PATH}/${item.slug}`} key={item.slug}>
               <span>{item.category}</span>
               <strong>{item.name}</strong>
               <small>{item.setup} setup · {item.days}</small>

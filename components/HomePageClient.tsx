@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { PublicAutomation } from "@/lib/catalogue";
+import { AUTOMATIONS_BASE_PATH } from "@/lib/brand";
 import { categories, formatFullRupees } from "@/lib/catalogue";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteNav } from "@/components/SiteNav";
@@ -101,7 +102,7 @@ export function HomePageClient({ automations }: HomePageClientProps) {
                 <div><dt>Complexity</dt><dd><span className={`complexity ${item.complexity.toLowerCase()}`}>{item.complexity}</span></dd></div>
               </dl>
               <div className="fit-note"><span>Best fit</span>{item.fit}</div>
-              <a className="card-action card-link" href={`/automations/${item.slug}`}>View details <span>→</span></a>
+              <a className="card-action card-link" href={`${AUTOMATIONS_BASE_PATH}/${item.slug}`}>View details <span>→</span></a>
             </article>
           ))}
         </div>

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { requireChatGPTUser } from "@/app/chatgpt-auth";
+import { AUTOMATIONS_BASE_PATH, BRAND_LOGO_SRC, BRAND_WORDMARK } from "@/lib/brand";
 import { getCatalogueRecord, isAdminEmail } from "@/lib/catalogue-store";
 import { toPublicAutomation } from "@/lib/catalogue";
 
@@ -28,12 +29,12 @@ export default async function AdminPreviewPage({ params }: PageProps) {
     <main className="automation-page admin-preview-page">
       <nav className="nav shell" aria-label="Admin preview navigation">
         <a className="brand" href="/admin" aria-label="Back to GTM Flows admin">
-          <img className="brand-logo" src="/gf-logo.png" alt="" />
-          <span>GTM/FLOWS</span>
+          <img className="brand-logo" src={BRAND_LOGO_SRC} alt="" />
+          <span>{BRAND_WORDMARK}</span>
         </a>
         <div className="nav-links">
           <a href="/admin">Back to admin</a>
-          {record.published && <a href={`/automations/${record.published.slug}`}>Open published</a>}
+          {record.published && <a href={`${AUTOMATIONS_BASE_PATH}/${record.published.slug}`}>Open published</a>}
         </div>
         <span className="button button-light nav-cta">Draft preview</span>
       </nav>
@@ -46,7 +47,7 @@ export default async function AdminPreviewPage({ params }: PageProps) {
           <p>{automation.short}</p>
           <div className="detail-actions">
             <a className="button button-dark" href="/admin">Back to editor <span>↗</span></a>
-            {record.published && <a className="button button-light" href={`/automations/${record.published.slug}`}>Compare published <span>→</span></a>}
+            {record.published && <a className="button button-light" href={`${AUTOMATIONS_BASE_PATH}/${record.published.slug}`}>Compare published <span>→</span></a>}
           </div>
         </div>
         <aside className="answer-card">

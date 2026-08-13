@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { HomePageClient } from "@/components/HomePageClient";
+import { AUTOMATIONS_BASE_PATH } from "@/lib/brand";
 import { CANONICAL_ORIGIN } from "@/lib/catalogue";
 import { getPublishedAutomations } from "@/lib/catalogue-store";
 import { breadcrumbJsonLd, localBusinessJsonLd } from "@/lib/seo";
@@ -32,7 +33,7 @@ export default async function CataloguePage() {
           "@type": "ListItem",
           position: index + 1,
           name: item.name,
-          url: `${CANONICAL_ORIGIN}/automations/${item.slug}`,
+          url: `${CANONICAL_ORIGIN}${AUTOMATIONS_BASE_PATH}/${item.slug}`,
         })),
       },
     },

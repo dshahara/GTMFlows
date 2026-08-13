@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { BRAND_LOGO_SRC, BRAND_WORDMARK } from "@/lib/brand";
 
 const links = [
   ["How We Build", "/how-we-build"],
@@ -24,8 +25,8 @@ export function SiteNav() {
     <header className="site-header">
       <div className="shell site-nav">
         <a className="brand" href="/" aria-label="GTM Flows home">
-          <img className="brand-logo" src="/gf-logo.png" alt="" />
-          <span>GTM/FLOWS</span>
+          <img className="brand-logo" src={BRAND_LOGO_SRC} alt="" />
+          <span>{BRAND_WORDMARK}</span>
         </a>
 
         <nav className="site-nav-links" aria-label="Primary navigation">

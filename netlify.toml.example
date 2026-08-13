@@ -1,0 +1,26 @@
+# Rename this file to netlify.toml only after the Netlify runtime choice is finalized.
+#
+# The current application is built for OpenAI Sites / Cloudflare D1. A direct
+# Netlify deploy with this config is not enough because the admin dashboard,
+# database-backed catalogue, ChatGPT auth headers and dynamic public routes all
+# depend on the current hosting runtime.
+#
+# Recommended Git-based Netlify target after migration:
+# - public pages: pre-rendered/static or standard Next/Vite output
+# - contact form: Netlify Function or external form endpoint
+# - catalogue admin: migrated to Netlify Functions + external database/auth,
+#   or kept on the existing Sites admin domain
+
+[build]
+  command = "npm run build"
+  publish = "dist/client"
+
+[[redirects]]
+  from = "/automation/:slug"
+  to = "/automations/:slug"
+  status = 301
+
+[[redirects]]
+  from = "/automation"
+  to = "/catalogue"
+  status = 301

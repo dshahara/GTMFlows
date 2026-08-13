@@ -1,3 +1,5 @@
+import { BRAND_LOGO_SRC, BRAND_WORDMARK } from "@/lib/brand";
+
 type SiteFooterProps = {
   source?: string;
 };
@@ -9,8 +11,8 @@ export function SiteFooter({ source: _source = "Website footer" }: SiteFooterPro
         <div className="marketing-footer-top">
           <div>
             <a className="brand" href="/" aria-label="GTM Flows home">
-              <img className="brand-logo" src="/gf-logo.png" alt="" />
-              <span>GTM/FLOWS</span>
+              <img className="brand-logo" src={BRAND_LOGO_SRC} alt="" />
+              <span>{BRAND_WORDMARK}</span>
             </a>
             <p className="marketing-footer-tagline">Automated revenue systems</p>
             <p className="marketing-footer-location">HSR Layout, Bengaluru, Karnataka, India</p>

@@ -46,7 +46,8 @@ test("uses a single customer-facing card action that opens the detail page", asy
   const homepage = await text("components/HomePageClient.tsx");
 
   assert.match(homepage, /View details/);
-  assert.match(homepage, /href=\{`\/automations\/\$\{item\.slug\}`\}/);
+  assert.match(homepage, /AUTOMATIONS_BASE_PATH/);
+  assert.match(homepage, /href=\{`\$\{AUTOMATIONS_BASE_PATH\}\/\$\{item\.slug\}`\}/);
   assert.doesNotMatch(homepage, /Quick view/);
   assert.doesNotMatch(homepage, /SEO page/);
   assert.doesNotMatch(homepage, /setSelected/);
@@ -54,7 +55,7 @@ test("uses a single customer-facing card action that opens the detail page", asy
 });
 
 test("keeps public navigation customer-facing and defines a favicon", async () => {
-  const [homepage, catalogue, detailPage, nav, footer, contactForm, layout, favicon] = await Promise.all([
+  const [homepage, catalogue, detailPage, nav, footer, contactForm, layout, favicon, brand] = await Promise.all([
     text("components/MarketingHomePage.tsx"),
     text("components/HomePageClient.tsx"),
     text("app/automations/[slug]/page.tsx"),
@@ -63,6 +64,7 @@ test("keeps public navigation customer-facing and defines a favicon", async () =
     text("components/ContactForm.tsx"),
     text("app/layout.tsx"),
     text("public/favicon.svg"),
+    text("lib/brand.ts"),
   ]);
 
   assert.match(footer, /Automated revenue systems/);
@@ -84,9 +86,13 @@ test("keeps public navigation customer-facing and defines a favicon", async () =
   assert.match(layout, /favicon-192\.png/);
   assert.match(favicon, /<svg/);
   assert.match(favicon, /data:image\/png;base64/);
-  assert.match(nav, /src="\/gf-logo\.png"/);
+  assert.match(brand, /BRAND_WORDMARK = "GTM Flows"/);
+  assert.match(brand, /BRAND_LOGO_SRC = "\/gf-logo\.png"/);
+  assert.doesNotMatch(nav, /GTM\/FLOWS/);
+  assert.doesNotMatch(footer, /GTM\/FLOWS/);
+  assert.match(nav, /BRAND_LOGO_SRC/);
   assert.match(detailPage, /<SiteNav \/>/);
-  assert.match(footer, /src="\/gf-logo\.png"/);
+  assert.match(footer, /BRAND_LOGO_SRC/);
 });
 
 test("ships the revenue-systems positioning as concise, connected website pages", async () => {
@@ -157,7 +163,30 @@ test("ships the uploaded logo and favicon assets without public brand-detail dow
   const designSystemCss = await text("Design system/ui_kits/website-v2/brand.css");
   await stat(new URL("Design system/ui_kits/website-v2/assets/gf-logo.png", root));
   assert.match(designSystemChrome, /assets\/gf-logo\.png/);
+  assert.doesNotMatch(designSystemChrome, /GTM\/FLOWS/);
   assert.match(designSystemCss, /object-fit:cover/);
+});
+
+test("keeps plural automation URLs canonical and redirects singular URLs", async () => {
+  const [brand, singularIndex, singularSlug, detailPage, sitemap, llms, netlifyExample, migrationPlan] = await Promise.all([
+    text("lib/brand.ts"),
+    text("app/automation/page.tsx"),
+    text("app/automation/[slug]/page.tsx"),
+    text("app/automations/[slug]/page.tsx"),
+    text("app/sitemap.xml/route.ts"),
+    text("app/llms.txt/route.ts"),
+    text("netlify.toml.example"),
+    text("docs/netlify-migration.md"),
+  ]);
+
+  assert.match(brand, /AUTOMATIONS_BASE_PATH = "\/automations"/);
+  assert.match(singularIndex, /permanentRedirect\("\/catalogue"\)/);
+  assert.match(singularSlug, /permanentRedirect\(`\$\{AUTOMATIONS_BASE_PATH\}\/\$\{slug\}`\)/);
+  assert.match(detailPage, /AUTOMATIONS_BASE_PATH/);
+  assert.doesNotMatch(sitemap, /\/automation\//);
+  assert.doesNotMatch(llms, /\/automation\//);
+  assert.match(netlifyExample, /\/automation\/:slug/);
+  assert.match(migrationPlan, /\/automation\/\[slug\] -> \/automations\/\[slug\]/);
 });
 
 test("accepts contact inquiries through a Slack-ready endpoint", async () => {

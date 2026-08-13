@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
+import { AUTOMATIONS_BASE_PATH, BRAND_LOGO_SRC, BRAND_WORDMARK } from "@/lib/brand";
 import type { AutomationContent, AutomationRecord } from "@/lib/catalogue";
 import { accentOptions, categories, complexityOptions, formatCostRange, formatDayRange, slugify } from "@/lib/catalogue";
 
@@ -93,7 +94,7 @@ export function AdminDashboard({ initialRecords, userEmail }: AdminDashboardProp
   return (
     <main className="admin-shell">
       <aside className="admin-sidebar">
-        <a className="brand" href="/" aria-label="GTM Flows home"><img className="brand-logo" src="/gf-logo.png" alt="" /><span>GTM/FLOWS</span></a>
+        <a className="brand" href="/" aria-label="GTM Flows home"><img className="brand-logo" src={BRAND_LOGO_SRC} alt="" /><span>{BRAND_WORDMARK}</span></a>
         <div className="admin-user"><span>Signed in</span><strong>{userEmail}</strong></div>
         <button className="admin-button primary" onClick={() => mutate({ action: "create" }, "Automation created.")}>+ New automation</button>
         <div className="admin-filters">
@@ -131,7 +132,7 @@ export function AdminDashboard({ initialRecords, userEmail }: AdminDashboardProp
             <button className="admin-button primary" disabled={isPending} onClick={() => mutate({ action: "publish", id: selectedRecord.id, draft: selected }, "Published to the website.")}>Publish draft</button>
             <a className="admin-button" href={`/admin/preview/${selectedRecord.id}`} target="_blank">Preview draft page</a>
             {selectedRecord.published ? (
-              <a className="admin-button" href={`/automations/${selectedRecord.published.slug}`} target="_blank">Open published</a>
+              <a className="admin-button" href={`${AUTOMATIONS_BASE_PATH}/${selectedRecord.published.slug}`} target="_blank">Open published</a>
             ) : (
               <span className="admin-button disabled">No published page</span>
             )}
@@ -192,7 +193,7 @@ export function AdminDashboard({ initialRecords, userEmail }: AdminDashboardProp
             </div>
             <div className="admin-meta">
               <div><span>Draft cost</span><strong>{draftCost}</strong></div>
-              <div><span>Draft slug</span><strong>/automations/{selected.slug}</strong></div>
+              <div><span>Draft slug</span><strong>{AUTOMATIONS_BASE_PATH}/{selected.slug}</strong></div>
               <div><span>Published</span><strong>{selectedRecord.published ? "Yes" : "No"}</strong></div>
               <div><span>Last edited</span><strong>{formatDate(selectedRecord.updatedAt)} by {selectedRecord.updatedBy ?? "unknown"}</strong></div>
               <div><span>Last published</span><strong>{selectedRecord.publishedAt ? `${formatDate(selectedRecord.publishedAt)} by ${selectedRecord.publishedBy ?? "unknown"}` : "Not published"}</strong></div>

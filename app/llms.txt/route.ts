@@ -1,4 +1,5 @@
 import { CANONICAL_ORIGIN } from "@/lib/catalogue";
+import { AUTOMATIONS_BASE_PATH } from "@/lib/brand";
 import { getPublishedAutomations } from "@/lib/catalogue-store";
 
 export const dynamic = "force-dynamic";
@@ -23,7 +24,7 @@ export async function GET() {
     "",
     ...automations.flatMap((automation) => [
       `- ${automation.name}: ${automation.answerSummary}`,
-      `  URL: ${CANONICAL_ORIGIN}/automations/${automation.slug}`,
+      `  URL: ${CANONICAL_ORIGIN}${AUTOMATIONS_BASE_PATH}/${automation.slug}`,
       `  Setup: ${automation.setup}; Monthly running cost: ${automation.monthly}; Implementation: ${automation.days}; Tools: ${automation.tools.join(", ")}`,
       "",
     ]),

@@ -8,7 +8,7 @@ const LINKS = {
 
 function Nav({ home }) {
   return <div className="shell"><div className="nav">
-    <a className="brand" href={home || 'index.html'}><img className="brand-logo" src="assets/gf-logo.png" alt="" /><span>GTM/FLOWS</span></a>
+    <a className="brand" href={home || 'index.html'}><img className="brand-logo" src="assets/gf-logo.png" alt="" /><span>GTM Flows</span></a>
     <nav className="nav-links">
       {Object.keys(LINKS).map(n => <a key={n} href={LINKS[n]}>{n}</a>)}
       <a className="button button-dark nav-cta" href="contact.html">Design my revenue system</a>
@@ -41,7 +41,7 @@ function Footer() {
   return <footer className="site-footer"><div className="shell">
     <div className="footer-top">
       <div>
-        <a className="brand" href="index.html"><img className="brand-logo" src="assets/gf-logo.png" alt="" /><span>GTM/FLOWS</span></a>
+        <a className="brand" href="index.html"><img className="brand-logo" src="assets/gf-logo.png" alt="" /><span>GTM Flows</span></a>
         <p className="footer-tagline">Automated revenue systems</p>
       </div>
       <div className="footer-nav">
