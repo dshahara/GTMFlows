@@ -1,5 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 72 72" fill="none" role="img" aria-labelledby="title">
   <title id="title">GTM Flows favicon</title>
-  <circle cx="64" cy="64" r="62" fill="#d7ff3f" stroke="#111111" stroke-width="3"/>
-  <text x="64" y="80" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800" letter-spacing="-2" fill="#050505">G/F</text>
+  <rect width="72" height="72" rx="18" fill="#d8fb5f"/>
+  <path d="M20 25l10 11-10 11" stroke="#101010" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.28" fill="none"/>
+  <path d="M33 25l10 11-10 11" stroke="#101010" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.58" fill="none"/>
+  <path d="M46 25l10 11-10 11" stroke="#101010" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 </svg>

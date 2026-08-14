@@ -161,14 +161,15 @@ test("ships the uploaded logo and favicon assets without public brand-detail dow
   const logo = await text("public/gf-logo.svg");
   assert.match(logo, /<svg/);
   assert.doesNotMatch(logo, /data:image\/png;base64/);
-  assert.match(logo, /G\/F/);
+  assert.match(logo, /forward flow arrows/);
+  assert.match(logo, /#d8fb5f/);
 
   const designSystemChrome = await text("Design system/ui_kits/website-v2/Chrome.jsx");
   const designSystemCss = await text("Design system/ui_kits/website-v2/brand.css");
   await stat(new URL("Design system/ui_kits/website-v2/assets/gf-logo.svg", root));
   assert.match(designSystemChrome, /assets\/gf-logo\.svg/);
   assert.doesNotMatch(designSystemChrome, /GTM\/FLOWS/);
-  assert.match(designSystemCss, /object-fit:cover/);
+  assert.match(designSystemCss, /border-radius:9px/);
 });
 
 test("keeps plural automation URLs canonical and redirects singular URLs", async () => {

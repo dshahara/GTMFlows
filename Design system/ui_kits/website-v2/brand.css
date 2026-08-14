@@ -10,7 +10,7 @@ button{font:inherit}
 
 .nav{height:84px;display:flex;align-items:center;justify-content:space-between;gap:36px;border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:800;letter-spacing:-.02em}
-.brand-logo{width:34px;height:34px;border-radius:50%;display:block;object-fit:cover}
+.brand-logo{width:34px;height:34px;border-radius:9px;display:block;object-fit:cover}
 .nav-links{display:flex;gap:30px;font-size:14px;align-items:center;white-space:nowrap}
 .nav-links a{color:#42423d;transition:color .2s}
 .button{white-space:nowrap;min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:16px;padding:0 22px;border:1px solid var(--ink);border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;transition:transform .2s,box-shadow .2s;text-align:left}
