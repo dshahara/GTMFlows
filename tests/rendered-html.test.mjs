@@ -63,7 +63,7 @@ test("uses a single customer-facing card action that opens the detail page", asy
 });
 
 test("keeps public navigation customer-facing and defines a favicon", async () => {
-  const [homepage, catalogue, detailPage, nav, footer, contactForm, layout, favicon, brand] = await Promise.all([
+  const [homepage, catalogue, detailPage, nav, footer, contactForm, layout, analytics, favicon, brand] = await Promise.all([
     text("components/MarketingHomePage.tsx"),
     text("components/HomePageClient.tsx"),
     text("app/automations/[slug]/page.tsx"),
@@ -71,6 +71,7 @@ test("keeps public navigation customer-facing and defines a favicon", async () =
     text("components/SiteFooter.tsx"),
     text("components/ContactForm.tsx"),
     text("app/layout.tsx"),
+    text("components/GoogleAnalytics.tsx"),
     text("public/favicon.svg"),
     text("lib/brand.ts"),
   ]);
@@ -89,6 +90,10 @@ test("keeps public navigation customer-facing and defines a favicon", async () =
   assert.doesNotMatch(homepage, /href="\/admin">Admin/);
   assert.doesNotMatch(detailPage, /href="\/admin">Admin/);
   assert.match(layout, /favicon\.svg/);
+  assert.match(layout, /NEXT_PUBLIC_GA_MEASUREMENT_ID/);
+  assert.match(layout, /<GoogleAnalytics measurementId=\{gaMeasurementId\}/);
+  assert.match(analytics, /googletagmanager\.com\/gtag\/js/);
+  assert.match(analytics, /send_page_view: false/);
   assert.match(favicon, /<svg/);
   assert.doesNotMatch(favicon, /data:image\/png;base64/);
   assert.match(brand, /BRAND_WORDMARK = "GTM Flows"/);
